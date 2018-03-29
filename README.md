@@ -1,5 +1,5 @@
-# A practice Todo app to help me prepare for Google's Associate Android Developer Certification exam
-**_This is ABSOLUTELY NOT a project and/or document from the actual exam itself_**, it's just a way for me to get more practice implementing all the tasks listed on the Exam Content tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/) in preparation for taking the exam.
+# An in-process practice Todo app to help me prepare for Google's Associate Android Developer Certification exam
+**_This is ABSOLUTELY NOT a project/material from the actual exam itself_**, it's just a way for me to get more practice implementing all the tasks listed on the "Exam Content" tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/) in preparation for taking Google's Associate Android Developer Certification Exam.
 
 It's also kind of a way of coming full circle for me -- I had done a [prework Todo app as part of my application for the CodePath Android for Engineers bootcamp](https://github.com/tachyonlabs/CodePath-Android-Bootcamp-Prework), so doing another Todo app as a way to use/practice all the skills that will be tested in the exam seems very appealing to me. I may even do it over again multiple times to help me really get things down and speed things up.
 
@@ -25,14 +25,14 @@ Implementation of the visual and navigational components of an application's des
 
 * [ ] Mock up the main screens and navigation flow of the application
 * [ ] Describe interactions between UI, background task, and data persistence
-* [ ] Construct a layout using XML or Java code
+* [x] Construct a layout using XML or Java code
 * [ ] Create a custom view class and add it to a layout
 * [ ] Implement a custom application theme
 * [ ] Apply a custom style to a group of common widgets
-* [ ] Define a RecyclerView item list
+* [x] Define a RecyclerView item list
 * [ ] Bind local data to a RecyclerView list
-* [ ] Implement menu-based or drawer navigation
-* [ ] Localize the application's UI text into one other language
+* [x] Implement menu-based or drawer navigation
+* [x] Localize the application's UI text into one other language
 * [ ] Apply content descriptions to views for accessibility
 * [ ] Add accessibility hooks to a custom view
 
@@ -41,7 +41,7 @@ Implementation of the visual and navigational components of an application's des
 Understanding of Android's top-level application components (Activity, Service, Broadcast Receiver, Content Provider) and the lifecycle associated with each one. Candidates should be able to describe the types of application logic that would be best suited for each component, and whether that component is executing in the foreground or in the background. This includes strategies for determining how and when to execute background work.
 
 * [ ] Describe an application's key functional and nonfunctional requirements
-* [ ] Create an Activity that displays a layout resource
+* [x] Create an Activity that displays a layout resource
 * [ ] Fetch local data from disk using a Loader on a background thread
 * [ ] Propagate data changes through a Loader to the UI
 * [ ] Schedule a time-sensitive task using alarms
