@@ -2,4 +2,15 @@
     <string name="app_name">Practice Todo App</string>
 
     <string name="action_settings">Settings</string>
+    <string name="no_due_date">No due date</string>
+    <string name="pref_sort_by_key">Sort by</string>
+    <string name="sort_by">Sort by</string>
+    <string name="due_date">Due date</string>
+    <string name="priority">Priority</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high_priority">High priority</string>
+    <string name="low_priority">Low priority</string>
+    <string name="medium_priority">Medium priority</string>
 </resources>

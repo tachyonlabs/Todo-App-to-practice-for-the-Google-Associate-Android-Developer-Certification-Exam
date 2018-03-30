@@ -5,6 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:background="@drawable/list_item_touch_selector"
         xmlns:tools="http://schemas.android.com/tools">
 
     <CheckBox
@@ -15,5 +16,24 @@
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+            tools:text="@string/no_due_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_due_date"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/cb_todo_list_item"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"/>
+    <TextView
+            tools:text="@string/high_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_priority"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/cb_todo_list_item"/>
 
 </android.support.constraint.ConstraintLayout>

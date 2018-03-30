@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+            android:defaultValue="@string/due_date"
+            android:entries="@array/pref_sort_by_options"
+            android:entryValues="@array/pref_sort_by_options"
+            android:key="@string/pref_sort_by_key"
+            android:title="@string/sort_by" />
 
 </PreferenceScreen>

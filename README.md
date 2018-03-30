@@ -5,7 +5,7 @@ It's also kind of a way of coming full circle for me -- I had done a [prework To
 
 On one hand, the list below seems to me like an unbelievable number of tasks to accomplish within 24 hours, but on the other hand, in the exam itself you'll be working with an already partially-done project rather than creating everything from scratch, so, well, once I actually take the exam I'll see how it goes!
 
-Again, the sections and individual tasks below are all from the Exam Content tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/).
+Again, the sections and individual tasks below are all from the "Exam Content" tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/).
 
 ### Testing and debugging
 
@@ -13,8 +13,8 @@ Writing tests to verify that the application's logic and user interface are perf
 
 * [ ] Write and execute a local JVM unit test
 * [ ] Write and execute a device UI test
+* [x] Use the system log to output debug information
 * [ ] Given a problem description, replicate the failure
-* [ ] Use the system log to output debug information
 * [ ] Debug and fix an application crash (uncaught exception)
 * [ ] Debug and fix an activity lifecycle issue
 * [ ] Debug and fix an issue binding data to views

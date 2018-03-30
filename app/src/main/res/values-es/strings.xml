@@ -1,3 +1,13 @@
 <resources>
     <string name="action_settings">Configuraciones</string>
+    <string name="no_due_date">No hay fecha limite</string>
+    <string name="sort_by">Ordenar por</string>
+    <string name="due_date">Fecha limite</string>
+    <string name="priority">Prioridad</string>
+    <string name="high">Alto</string>
+    <string name="low">Bajo</string>
+    <string name="medium">Medio</string>
+    <string name="high_priority">Prioridad alta</string>
+    <string name="low_priority">Prioridad baja</string>
+    <string name="medium_priority">Prioridad media</string>
 </resources>

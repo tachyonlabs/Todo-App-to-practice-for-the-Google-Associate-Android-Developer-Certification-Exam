@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoListAdapterViewHolder> {
     private final String TAG = TodoListAdapter.class.getSimpleName();
@@ -37,6 +38,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     public void onBindViewHolder(@NonNull TodoListAdapter.TodoListAdapterViewHolder holder, int position) {
         String todoListItem = mTodos[position];
         holder.cbTodoListItem.setText(todoListItem);
+        holder.tvDueDate.setText(R.string.no_due_date);
+        holder.tvPriority.setText(R.string.high_priority);
     }
 
     public void setTodoListData(String[] todos) {
@@ -50,10 +53,14 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
     public class TodoListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final CheckBox cbTodoListItem;
+        final TextView tvDueDate;
+        final TextView tvPriority;
 
         public TodoListAdapterViewHolder(View itemView) {
             super(itemView);
             cbTodoListItem = itemView.findViewById(R.id.cb_todo_list_item);
+            tvDueDate = itemView.findViewById(R.id.tv_due_date);
+            tvPriority = itemView.findViewById(R.id.tv_priority);
             itemView.setOnClickListener(this);
         }
 
