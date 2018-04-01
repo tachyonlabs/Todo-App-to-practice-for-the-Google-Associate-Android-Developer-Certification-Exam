@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/describe_your_task"
+                android:ems="10"
+                android:id="@+id/tv_task_name"
+                android:paddingLeft="3dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="6dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                style="@style/AddEditTaskRadioButtonLabels"
+                android:text="@string/priority"
+                android:id="@+id/tv_priority_label"
+                app:layout_constraintTop_toBottomOf="@+id/tv_task_name"/>
+
+        <RadioGroup
+                style="@style/AddEditTaskRadioGroups"
+                android:id="@+id/rg_priority"
+                android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@+id/tv_priority_label">
+
+            <RadioButton
+                    style="@style/AddEditTaskRadioButtons"
+                    android:id="@+id/rb_high_priority"
+                    android:text="@string/high"/>
+
+            <RadioButton
+                    style="@style/AddEditTaskRadioButtons"
+                    android:id="@+id/rb_medium_priority"
+                    android:text="@string/medium"/>
+
+            <RadioButton
+                    style="@style/AddEditTaskRadioButtons"
+                    android:id="@+id/rb_low_priority"
+                    android:text="@string/low"/>
+
+        </RadioGroup>
+
+        <TextView
+                style="@style/AddEditTaskRadioButtonLabels"
+                android:text="@string/due_date"
+                android:id="@+id/tv_due_date_label"
+                app:layout_constraintTop_toBottomOf="@+id/rg_priority"/>
+
+        <RadioGroup
+                style="@style/AddEditTaskRadioGroups"
+                android:id="@+id/rg_due_date"
+                android:weightSum="2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_due_date_label">
+
+            <RadioButton
+                    style="@style/AddEditTaskRadioButtons"
+                    android:id="@+id/rb_no_due_date"
+                    android:text="@string/no_due_date"/>
+
+            <RadioButton
+                    style="@style/AddEditTaskRadioButtons"
+                    android:id="@+id/rb_select_due_date"
+                    android:text="@string/select_due_date"/>
+
+        </RadioGroup>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

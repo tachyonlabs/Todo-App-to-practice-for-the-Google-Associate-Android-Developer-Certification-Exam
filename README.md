@@ -28,7 +28,7 @@ Implementation of the visual and navigational components of an application's des
 * [x] Construct a layout using XML or Java code
 * [ ] Create a custom view class and add it to a layout
 * [ ] Implement a custom application theme
-* [ ] Apply a custom style to a group of common widgets
+* [x] Apply a custom style to a group of common widgets
 * [x] Define a RecyclerView item list
 * [ ] Bind local data to a RecyclerView list
 * [x] Implement menu-based or drawer navigation
@@ -62,7 +62,7 @@ Determining appropriate use cases for local persisted data, and designing soluti
 * [ ] Update or delete existing items in a database
 * [ ] Expose a database to other applications via Content Provider
 * [ ] Read and parse raw resources or asset files
-* [ ] Create persistent preference data from user input
+* [x] Create persistent preference data from user input
 * [ ] Toggle application logic based on preference values
 
 ### Enhanced system integration
@@ -74,3 +74,5 @@ Extending applications to integrate with interfaces outside the core application
 * [ ] Create and display a notification to the user
     
 ### Notes
+
+I'm learning Spanish, but my Spanish is not that great, so I used Google Translate to do the Spanish UI localization strings.

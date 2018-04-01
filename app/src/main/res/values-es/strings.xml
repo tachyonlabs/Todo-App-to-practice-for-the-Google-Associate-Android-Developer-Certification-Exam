@@ -10,4 +10,6 @@
     <string name="high_priority">Prioridad alta</string>
     <string name="low_priority">Prioridad baja</string>
     <string name="medium_priority">Prioridad media</string>
+    <string name="add_new_task">Agregar Nueva Tarea</string>
+    <string name="edit_task">Editar Tarea</string>
 </resources>

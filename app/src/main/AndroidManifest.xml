@@ -24,6 +24,13 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".activities.TodoListActivity"/>
         </activity>
+        <activity
+                android:name=".activities.AddOrEditTaskActivity"
+                android:parentActivityName=".activities.TodoListActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".activities.TodoListActivity"/>
+        </activity>
     </application>
 
 </manifest>
