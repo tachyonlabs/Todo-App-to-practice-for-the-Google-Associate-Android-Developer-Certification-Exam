@@ -54,7 +54,7 @@ Understanding of Android's top-level application components (Activity, Service, 
 
 Determining appropriate use cases for local persisted data, and designing solutions to implement data storage using files, preferences, and databases. This includes implementing strategies for bundling static data with applications, caching data from remote sources, and managing user-generated private data. Candidates should also be able to describe platform features that allow applications to store data securely and share that data with other applications in.
 
-* [ ] Define a database schema; include tables, fields, and indices
+* [x] Define a database schema; include tables, fields, and indices
 * [ ] Create an application-private database file
 * [ ] Construct database queries returning single results
 * [ ] Construct database queries returning multiple results

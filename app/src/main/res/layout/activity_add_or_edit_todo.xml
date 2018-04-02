@@ -13,7 +13,7 @@
                 android:inputType="text"
                 android:hint="@string/describe_your_task"
                 android:ems="10"
-                android:id="@+id/tv_task_name"
+                android:id="@+id/et_task_description"
                 android:paddingLeft="3dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="6dp"
@@ -25,7 +25,7 @@
                 style="@style/AddEditTaskRadioButtonLabels"
                 android:text="@string/priority"
                 android:id="@+id/tv_priority_label"
-                app:layout_constraintTop_toBottomOf="@+id/tv_task_name"/>
+                app:layout_constraintTop_toBottomOf="@+id/et_task_description"/>
 
         <RadioGroup
                 style="@style/AddEditTaskRadioGroups"
@@ -73,6 +73,18 @@
                     android:text="@string/select_due_date"/>
 
         </RadioGroup>
+
+        <Button
+                android:text="@string/add_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_add_or_update_task"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"
+                android:onClick="addOrUpdateTask"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

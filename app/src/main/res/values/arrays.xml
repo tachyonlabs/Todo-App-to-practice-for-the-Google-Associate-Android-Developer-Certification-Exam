@@ -4,4 +4,11 @@
         <item>@string/due_date</item>
         <item>@string/priority</item>
     </string-array>
+
+    <string-array name="priorities">
+        <item>@string/high_priority</item>
+        <item>@string/medium_priority</item>
+        <item>@string/low_priority</item>
+    </string-array>
+
 </resources>

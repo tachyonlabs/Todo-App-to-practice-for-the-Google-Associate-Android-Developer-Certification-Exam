@@ -3,6 +3,7 @@ package com.tachyonlabs.practicetodoapp.activities;
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.adapters.TodoListAdapter;
 import com.tachyonlabs.practicetodoapp.databinding.ActivityTodoListBinding;
+import com.tachyonlabs.practicetodoapp.models.Todo;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -20,7 +21,7 @@ import android.view.View;
 public class TodoListActivity extends AppCompatActivity implements TodoListAdapter.TodoListAdapterOnClickHandler {
     private RecyclerView mRecyclerView;
     private TodoListAdapter mTodoListAdapter;
-    private String[] todos;
+    private Todo[] todos;
     private ActivityTodoListBinding mBinding;
 
     @Override
@@ -31,22 +32,20 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
-        mTodoListAdapter = new TodoListAdapter(this);
+        mTodoListAdapter = new TodoListAdapter(this, this);
         mRecyclerView.setAdapter(mTodoListAdapter);
         DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(mDividerItemDecoration);
 
-        // some fake data to start with
-        todos = new String[]{"Finish Android project", "Make garlic bread", "Tune ukulele", "Answer recruiter's email"};
-        mTodoListAdapter.setTodoListData(todos);
+        displayFakeData();
 
         FloatingActionButton fab = mBinding.fab;
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TodoListActivity.this, AddOrEditTaskActivity.class);
-                intent.putExtra(getString(R.string.adding_or_editing), getString(R.string.add_new_task));
+                Intent intent = new Intent(TodoListActivity.this, AddOrEditTodoActivity.class);
+                intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.add_new_task));
                 startActivity(intent);
             }
         });
@@ -69,11 +68,23 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
     }
 
     @Override
-    public void onClick(String string) {
-        Intent intent = new Intent(this, AddOrEditTaskActivity.class);
-        intent.putExtra(getString(R.string.adding_or_editing), getString(R.string.edit_task));
+    public void onClick(Todo todo) {
+        Intent intent = new Intent(this, AddOrEditTodoActivity.class);
+        intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.edit_task));
+        intent.putExtra(getString(R.string.intent_todo_key), todo);
         startActivity(intent);
     }
 
+    private void displayFakeData() {
+        // some fake data to start with
+        String[] descriptions = {"Finish Android project", "Make garlic bread", "Tune ukulele", "Answer recruiter's email"};
+        int[] priorities = {0, 2, 1, 0};
+        int[] dates = {0, 0, 0, 0};
+        todos = new Todo[descriptions.length];
+        for (int i = 0; i < descriptions.length; i++) {
+            todos[i] = new Todo(descriptions[i], priorities[i], dates[i]);
+        }
+        mTodoListAdapter.setTodoListData(todos);
+    }
 
 }

@@ -9,6 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
         <activity
                 android:name=".activities.TodoListActivity"
                 android:launchMode="singleTop">
@@ -17,6 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".activities.SettingsActivity"
                 android:parentActivityName=".activities.TodoListActivity">
@@ -24,13 +26,20 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".activities.TodoListActivity"/>
         </activity>
+
         <activity
-                android:name=".activities.AddOrEditTaskActivity"
+                android:name=".activities.AddOrEditTodoActivity"
                 android:parentActivityName=".activities.TodoListActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".activities.TodoListActivity"/>
         </activity>
+
+        <provider
+                android:authorities="com.tachyonlabs.practicetodoapp"
+                android:name=".data.TodoListProvider"
+                android:exported="true"/>
+
     </application>
 
 </manifest>

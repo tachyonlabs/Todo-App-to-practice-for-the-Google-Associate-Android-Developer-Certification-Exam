@@ -12,4 +12,6 @@
     <string name="medium_priority">Prioridad media</string>
     <string name="add_new_task">Agregar Nueva Tarea</string>
     <string name="edit_task">Editar Tarea</string>
+    <string name="add_task">Agregar Tarea</string>
+    <string name="update_task">Cambiar la Tarea</string>
 </resources>

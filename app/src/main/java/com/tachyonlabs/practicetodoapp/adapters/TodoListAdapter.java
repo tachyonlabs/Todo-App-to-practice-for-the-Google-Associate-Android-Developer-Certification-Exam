@@ -1,25 +1,34 @@
 package com.tachyonlabs.practicetodoapp.adapters;
 
 import com.tachyonlabs.practicetodoapp.R;
+import com.tachyonlabs.practicetodoapp.models.Todo;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoListAdapterViewHolder> {
     private final String TAG = TodoListAdapter.class.getSimpleName();
     private final TodoListAdapterOnClickHandler mClickHandler;
-    private String[] mTodos;
+    private Todo[] mTodos;
+    private Context mContext;
+    private Drawable[] priorityStars;
 
-    public TodoListAdapter(TodoListAdapterOnClickHandler todoListAdapterOnClickHandler) {
+    public TodoListAdapter(Context context, TodoListAdapterOnClickHandler todoListAdapterOnClickHandler) {
         mClickHandler = todoListAdapterOnClickHandler;
+        mContext = context;
+        Resources res = context.getResources();
+        // not really the place for this, but I had too much trouble trying to read them from @arrays
+        priorityStars = new Drawable[] {res.getDrawable(R.drawable.ic_star_red_24dp), res.getDrawable(R.drawable.ic_star_orange_24dp), res.getDrawable(R.drawable.ic_star_yellow_24dp)};
     }
-
 
     @Override
     public TodoListAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -36,37 +45,46 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
     @Override
     public void onBindViewHolder(@NonNull TodoListAdapter.TodoListAdapterViewHolder holder, int position) {
-        String todoListItem = mTodos[position];
-        holder.cbTodoListItem.setText(todoListItem);
-        holder.tvDueDate.setText(R.string.no_due_date);
-        holder.tvPriority.setText(R.string.high_priority);
+        Todo todoListItem = mTodos[position];
+        holder.cbTodoDescription.setText(todoListItem.getDescription());
+        // TODO put this date stuff as a function somewhere else
+        String dueDateString = "";
+        int dueDate = todoListItem.getDate();
+        if (dueDate == 0) {
+            dueDateString = mContext.getString(R.string.no_due_date);
+        }
+        holder.tvTodoDueDate.setText(dueDateString);
+        holder.tvTodoPriority.setText(mContext.getResources().getStringArray(R.array.priorities)[todoListItem.getPriority()]);
+        holder.ivTodoPriorityStar.setBackground(priorityStars[todoListItem.getPriority()]);
     }
 
-    public void setTodoListData(String[] todos) {
+    public void setTodoListData(Todo[] todos) {
         mTodos = todos;
         notifyDataSetChanged();
     }
 
     public interface TodoListAdapterOnClickHandler {
-        void onClick(String string);
+        void onClick(Todo todo);
     }
 
     public class TodoListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final CheckBox cbTodoListItem;
-        final TextView tvDueDate;
-        final TextView tvPriority;
+        final CheckBox cbTodoDescription;
+        final TextView tvTodoDueDate;
+        final TextView tvTodoPriority;
+        final ImageView ivTodoPriorityStar;
 
         public TodoListAdapterViewHolder(View itemView) {
             super(itemView);
-            cbTodoListItem = itemView.findViewById(R.id.cb_todo_list_item);
-            tvDueDate = itemView.findViewById(R.id.tv_due_date);
-            tvPriority = itemView.findViewById(R.id.tv_priority);
+            cbTodoDescription = itemView.findViewById(R.id.cb_todo_description);
+            tvTodoDueDate = itemView.findViewById(R.id.tv_todo_due_date);
+            tvTodoPriority = itemView.findViewById(R.id.tv_todo_priority);
+            ivTodoPriorityStar = itemView.findViewById(R.id.iv_todo_priority_star);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            String todo = mTodos[getAdapterPosition()];
+            Todo todo = mTodos[getAdapterPosition()];
             mClickHandler.onClick(todo);
         }
     }
