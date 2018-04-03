@@ -1,10 +1,12 @@
 package com.tachyonlabs.practicetodoapp.adapters;
 
 import com.tachyonlabs.practicetodoapp.R;
+import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.models.Todo;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +20,13 @@ import android.widget.TextView;
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoListAdapterViewHolder> {
     private final String TAG = TodoListAdapter.class.getSimpleName();
     private final TodoListAdapterOnClickHandler mClickHandler;
-    private Todo[] mTodos;
     private Context mContext;
     private Drawable[] priorityStars;
+    private Cursor mCursor;
+    private int mDescriptionIndex;
+    private int mPriorityIndex;
+    private int mDueDateIndex;
+    private int m_IDIndex;
 
     public TodoListAdapter(Context context, TodoListAdapterOnClickHandler todoListAdapterOnClickHandler) {
         mClickHandler = todoListAdapterOnClickHandler;
@@ -45,22 +51,19 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
     @Override
     public void onBindViewHolder(@NonNull TodoListAdapter.TodoListAdapterViewHolder holder, int position) {
-        Todo todoListItem = mTodos[position];
-        holder.cbTodoDescription.setText(todoListItem.getDescription());
+        mCursor.moveToPosition(position);
+
+        holder.cbTodoDescription.setText(mCursor.getString(mDescriptionIndex));
         // TODO put this date stuff as a function somewhere else
         String dueDateString = "";
-        int dueDate = todoListItem.getDueDate();
+        int dueDate = mCursor.getInt(mDueDateIndex);
         if (dueDate == 0) {
             dueDateString = mContext.getString(R.string.no_due_date);
         }
+        int priority = mCursor.getInt(mPriorityIndex);
         holder.tvTodoDueDate.setText(dueDateString);
-        holder.tvTodoPriority.setText(mContext.getResources().getStringArray(R.array.priorities)[todoListItem.getPriority()]);
-        holder.ivTodoPriorityStar.setBackground(priorityStars[todoListItem.getPriority()]);
-    }
-
-    public void setTodoListData(Todo[] todos) {
-        mTodos = todos;
-        notifyDataSetChanged();
+        holder.tvTodoPriority.setText(mContext.getResources().getStringArray(R.array.priorities)[priority]);
+        holder.ivTodoPriorityStar.setBackground(priorityStars[priority]);
     }
 
     public interface TodoListAdapterOnClickHandler {
@@ -84,17 +87,30 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
         @Override
         public void onClick(View view) {
-            Todo todo = mTodos[getAdapterPosition()];
+            mCursor.moveToPosition(getAdapterPosition());
+            Todo todo = new Todo(mCursor.getString(mDescriptionIndex),
+                    mCursor.getInt(mPriorityIndex),
+                    mCursor.getInt(mDueDateIndex),
+                    mCursor.getInt(m_IDIndex));
             mClickHandler.onClick(todo);
         }
     }
 
     @Override
     public int getItemCount() {
-        if (mTodos == null) {
+        if (mCursor == null) {
             return 0;
         } else {
-            return mTodos.length;
+            return mCursor.getCount();
         }
+    }
+
+    public void swapCursor(Cursor newCursor) {
+        mCursor = newCursor;
+        mDescriptionIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION);
+        mPriorityIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_PRIORITY);
+        mDueDateIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DUE_DATE);
+        m_IDIndex = mCursor.getColumnIndex("_id");
+        notifyDataSetChanged();
     }
 }

@@ -30,7 +30,7 @@ Implementation of the visual and navigational components of an application's des
 * [ ] Implement a custom application theme
 * [x] Apply a custom style to a group of common widgets
 * [x] Define a RecyclerView item list
-* [ ] Bind local data to a RecyclerView list
+* [x] Bind local data to a RecyclerView list
 * [x] Implement menu-based or drawer navigation
 * [x] Localize the application's UI text into one other language
 * [ ] Apply content descriptions to views for accessibility
@@ -42,8 +42,8 @@ Understanding of Android's top-level application components (Activity, Service, 
 
 * [ ] Describe an application's key functional and nonfunctional requirements
 * [x] Create an Activity that displays a layout resource
-* [ ] Fetch local data from disk using a Loader on a background thread
-* [ ] Propagate data changes through a Loader to the UI
+* [x] Fetch local data from disk using a Loader on a background thread
+* [x] Propagate data changes through a Loader to the UI
 * [ ] Schedule a time-sensitive task using alarms
 * [ ] Schedule a background task using JobScheduler
 * [ ] Execute a background task inside of a Service
@@ -57,7 +57,7 @@ Determining appropriate use cases for local persisted data, and designing soluti
 * [x] Define a database schema; include tables, fields, and indices
 * [x] Create an application-private database file
 * [ ] Construct database queries returning single results
-* [ ] Construct database queries returning multiple results
+* [x] Construct database queries returning multiple results
 * [x] Insert new items into a database
 * [ ] Update or delete existing items in a database
 * [ ] Expose a database to other applications via Content Provider

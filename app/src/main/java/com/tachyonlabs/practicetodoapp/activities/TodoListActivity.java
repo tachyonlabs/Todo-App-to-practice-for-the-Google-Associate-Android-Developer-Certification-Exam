@@ -9,10 +9,15 @@ import com.tachyonlabs.practicetodoapp.models.Todo;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,14 +27,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-public class TodoListActivity extends AppCompatActivity implements TodoListAdapter.TodoListAdapterOnClickHandler {
+public class TodoListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, TodoListAdapter.TodoListAdapterOnClickHandler {
     private RecyclerView mRecyclerView;
     private TodoListAdapter mTodoListAdapter;
-    private Todo[] todos;
     private ActivityTodoListBinding mBinding;
 
-    static final int ADD_TASK_REQUEST = 1;
-    static final int EDIT_TASK_REQUEST = 2;
+    private static final int ADD_TASK_REQUEST = 1;
+    private static final int EDIT_TASK_REQUEST = 2;
+    private static final int ID_TODOLIST_LOADER = 2018;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +49,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
         DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(mDividerItemDecoration);
 
-        displayFakeData();
-
         FloatingActionButton fab = mBinding.fab;
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +58,8 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
                 startActivityForResult(intent, ADD_TASK_REQUEST);
             }
         });
+
+        getSupportLoaderManager().initLoader(ID_TODOLIST_LOADER, null, this);
     }
 
     @Override
@@ -82,18 +86,6 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
         startActivityForResult(intent, EDIT_TASK_REQUEST);
     }
 
-    private void displayFakeData() {
-        // some fake data to start with
-        String[] descriptions = {"Finish Android project", "Make garlic bread", "Tune ukulele", "Answer recruiter's email"};
-        int[] priorities = {0, 2, 1, 0};
-        int[] dates = {0, 0, 0, 0};
-        todos = new Todo[descriptions.length];
-        for (int i = 0; i < descriptions.length; i++) {
-            todos[i] = new Todo(descriptions[i], priorities[i], dates[i], -1);
-        }
-        mTodoListAdapter.setTodoListData(todos);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
@@ -110,5 +102,32 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
                 case EDIT_TASK_REQUEST:
             }
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int loaderId, Bundle bundle) {
+        if (loaderId == ID_TODOLIST_LOADER) {
+            Uri todoListQueryUri = TodoListContract.TodoListEntry.CONTENT_URI;
+            String sortOrder = TodoListContract.TodoListEntry.COLUMN_PRIORITY + " ASC";
+
+            return new CursorLoader(this,
+                    todoListQueryUri,
+                    null,
+                    null,
+                    null,
+                    sortOrder);
+        } else {
+            throw new RuntimeException("Loader Not Implemented: " + loaderId);
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mTodoListAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        mTodoListAdapter.swapCursor(null);
     }
 }
