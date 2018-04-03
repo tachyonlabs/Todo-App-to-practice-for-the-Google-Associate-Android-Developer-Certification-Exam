@@ -3,7 +3,7 @@
 
 It's also kind of a way of coming full circle for me -- I had done a [prework Todo app as part of my application for the CodePath Android for Engineers bootcamp](https://github.com/tachyonlabs/CodePath-Android-Bootcamp-Prework), so doing another Todo app as a way to use/practice all the skills that will be tested in the exam seems very appealing to me. I may even do it over again multiple times to help me really get things down and speed things up.
 
-On one hand, the list below seems to me like an unbelievable number of tasks to accomplish within 24 hours, but on the other hand, in the exam itself you'll be working with an already partially-done project rather than creating everything from scratch, so, well, once I actually take the exam I'll see how it goes!
+On one hand, the list below seems to me like an unbelievable number of tasks to accomplish within 24 hours, but on the other hand, in the exam itself you'll be working with an already partially-done project rather than creating everything from scratch, so, well, once I actually take the exam I'll see how it goes! The checklist is working out well for showing me things that I definitely could use more work on implementing completely by myself, and things I’m not familiar with at all, and then when I’m done I’ll have examples of all of them there in one app.
 
 Again, the sections and individual tasks below are all from the "Exam Content" tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/).
 
@@ -55,10 +55,10 @@ Understanding of Android's top-level application components (Activity, Service, 
 Determining appropriate use cases for local persisted data, and designing solutions to implement data storage using files, preferences, and databases. This includes implementing strategies for bundling static data with applications, caching data from remote sources, and managing user-generated private data. Candidates should also be able to describe platform features that allow applications to store data securely and share that data with other applications in.
 
 * [x] Define a database schema; include tables, fields, and indices
-* [ ] Create an application-private database file
+* [x] Create an application-private database file
 * [ ] Construct database queries returning single results
 * [ ] Construct database queries returning multiple results
-* [ ] Insert new items into a database
+* [x] Insert new items into a database
 * [ ] Update or delete existing items in a database
 * [ ] Expose a database to other applications via Content Provider
 * [ ] Read and parse raw resources or asset files

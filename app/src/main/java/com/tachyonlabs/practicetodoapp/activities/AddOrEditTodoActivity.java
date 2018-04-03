@@ -4,13 +4,17 @@ import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.databinding.ActivityAddOrEditTodoBinding;
 import com.tachyonlabs.practicetodoapp.models.Todo;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 public class AddOrEditTodoActivity extends AppCompatActivity {
     private ActivityAddOrEditTodoBinding mBinding;
+    private int todoId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +33,11 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
             mBinding.btnAddOrUpdateTask.setText(R.string.add_task);
         } else {
             mBinding.btnAddOrUpdateTask.setText(R.string.update_task);
-            Todo todoToEdit = bundle.getParcelable(getString(R.string.intent_todo_key));
-            mBinding.etTaskDescription.setText(todoToEdit.getDescription());
+            Todo todoToAddOrEdit = bundle.getParcelable(getString(R.string.intent_todo_key));
+            todoId = todoToAddOrEdit.getId();
+            mBinding.etTaskDescription.setText(todoToAddOrEdit.getDescription());
 
-            switch (todoToEdit.getPriority()) {
+            switch (todoToAddOrEdit.getPriority()) {
                 case 0:
                     mBinding.rbHighPriority.setChecked(true);
                     break;
@@ -43,7 +48,7 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
                     mBinding.rbLowPriority.setChecked(true);
             }
 
-            if (todoToEdit.getDate() == 0) {
+            if (todoToAddOrEdit.getDueDate() == 0) {
                 mBinding.rbNoDueDate.setChecked(true);
             } else {
 
@@ -53,6 +58,23 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
     }
 
     public void addOrUpdateTask(View view) {
-        finish();
+        String description = mBinding.etTaskDescription.getText().toString().trim();
+        int priority = 0;
+        int dueDate = 0;
+
+        if (description.equals("")) {
+            Toast.makeText(this, getString(R.string.description_cannot_be_empty), Toast.LENGTH_LONG).show();
+        } else {
+            if (mBinding.rbMediumPriority.isChecked()) {
+                priority = 1;
+            } else if (mBinding.rbLowPriority.isChecked()) {
+                priority = 2;
+            }
+            Todo todo = new Todo(description, priority, dueDate, todoId);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(getString(R.string.intent_todo_key), todo);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }
     }
 }

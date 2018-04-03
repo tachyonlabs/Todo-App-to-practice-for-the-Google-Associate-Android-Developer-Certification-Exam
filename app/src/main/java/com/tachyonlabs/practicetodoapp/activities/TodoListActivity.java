@@ -2,11 +2,15 @@ package com.tachyonlabs.practicetodoapp.activities;
 
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.adapters.TodoListAdapter;
+import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.databinding.ActivityTodoListBinding;
 import com.tachyonlabs.practicetodoapp.models.Todo;
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +27,9 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
     private TodoListAdapter mTodoListAdapter;
     private Todo[] todos;
     private ActivityTodoListBinding mBinding;
+
+    static final int ADD_TASK_REQUEST = 1;
+    static final int EDIT_TASK_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
             public void onClick(View view) {
                 Intent intent = new Intent(TodoListActivity.this, AddOrEditTodoActivity.class);
                 intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.add_new_task));
-                startActivity(intent);
+                startActivityForResult(intent, ADD_TASK_REQUEST);
             }
         });
     }
@@ -72,7 +79,7 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
         Intent intent = new Intent(this, AddOrEditTodoActivity.class);
         intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.edit_task));
         intent.putExtra(getString(R.string.intent_todo_key), todo);
-        startActivity(intent);
+        startActivityForResult(intent, EDIT_TASK_REQUEST);
     }
 
     private void displayFakeData() {
@@ -82,9 +89,26 @@ public class TodoListActivity extends AppCompatActivity implements TodoListAdapt
         int[] dates = {0, 0, 0, 0};
         todos = new Todo[descriptions.length];
         for (int i = 0; i < descriptions.length; i++) {
-            todos[i] = new Todo(descriptions[i], priorities[i], dates[i]);
+            todos[i] = new Todo(descriptions[i], priorities[i], dates[i], -1);
         }
         mTodoListAdapter.setTodoListData(todos);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            Todo todo = data.getParcelableExtra(getString(R.string.intent_todo_key));
+            switch (requestCode) {
+                case ADD_TASK_REQUEST:
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION, todo.getDescription());
+                    contentValues.put(TodoListContract.TodoListEntry.COLUMN_PRIORITY, todo.getPriority());
+                    contentValues.put(TodoListContract.TodoListEntry.COLUMN_DUE_DATE, todo.getDueDate());
+
+                    Uri uri = getContentResolver().insert(TodoListContract.TodoListEntry.CONTENT_URI, contentValues);
+                    break;
+                case EDIT_TASK_REQUEST:
+            }
+        }
+    }
 }

@@ -49,7 +49,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         holder.cbTodoDescription.setText(todoListItem.getDescription());
         // TODO put this date stuff as a function somewhere else
         String dueDateString = "";
-        int dueDate = todoListItem.getDate();
+        int dueDate = todoListItem.getDueDate();
         if (dueDate == 0) {
             dueDateString = mContext.getString(R.string.no_due_date);
         }
