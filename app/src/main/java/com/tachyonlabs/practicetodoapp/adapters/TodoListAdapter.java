@@ -54,6 +54,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         mCursor.moveToPosition(position);
 
         holder.cbTodoDescription.setText(mCursor.getString(mDescriptionIndex));
+        // so deleting an item doesn't propagate the checked checkbox when the view is recycled
+        holder.cbTodoDescription.setChecked(false);
         // TODO put this date stuff as a function somewhere else
         String dueDateString = "";
         int dueDate = mCursor.getInt(mDueDateIndex);
@@ -67,7 +69,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     }
 
     public interface TodoListAdapterOnClickHandler {
-        void onClick(Todo todo);
+        void onClick(Todo todo, View view);
     }
 
     public class TodoListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -83,6 +85,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
             tvTodoPriority = itemView.findViewById(R.id.tv_todo_priority);
             ivTodoPriorityStar = itemView.findViewById(R.id.iv_todo_priority_star);
             itemView.setOnClickListener(this);
+            cbTodoDescription.setOnClickListener(this);
         }
 
         @Override
@@ -92,7 +95,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
                     mCursor.getInt(mPriorityIndex),
                     mCursor.getInt(mDueDateIndex),
                     mCursor.getInt(m_IDIndex));
-            mClickHandler.onClick(todo);
+            mClickHandler.onClick(todo, view);
         }
     }
 
@@ -107,10 +110,12 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
     public void swapCursor(Cursor newCursor) {
         mCursor = newCursor;
-        mDescriptionIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION);
-        mPriorityIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_PRIORITY);
-        mDueDateIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DUE_DATE);
-        m_IDIndex = mCursor.getColumnIndex("_id");
+        if (mCursor != null) {
+            mDescriptionIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION);
+            mPriorityIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_PRIORITY);
+            mDueDateIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DUE_DATE);
+            m_IDIndex = mCursor.getColumnIndex("_id");
+        }
         notifyDataSetChanged();
     }
 }

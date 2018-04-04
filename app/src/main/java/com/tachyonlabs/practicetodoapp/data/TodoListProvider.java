@@ -80,14 +80,12 @@ public class TodoListProvider extends ContentProvider{
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-
         int match = sUriMatcher.match(uri);
         int tasksDeleted;
 
         switch (match) {
             case CODE_TODO_WITH_ID:
-                String id = uri.getPathSegments().get(1);
-                tasksDeleted = db.delete(TodoListContract.TodoListEntry.TABLE_NAME, "_id=?", new String[]{id});
+                tasksDeleted = db.delete(TodoListContract.TodoListEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -103,14 +101,12 @@ public class TodoListProvider extends ContentProvider{
     @Override
     public int update(@NonNull Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-
         int match = sUriMatcher.match(uri);
         int tasksUpdated;
 
         switch (match) {
             case CODE_TODO_WITH_ID:
-                String id = uri.getPathSegments().get(1);
-                tasksUpdated = db.update(TodoListContract.TodoListEntry.TABLE_NAME, contentValues, "_id=?", new String[]{id});
+                tasksUpdated = db.update(TodoListContract.TodoListEntry.TABLE_NAME, contentValues, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -127,9 +123,8 @@ public class TodoListProvider extends ContentProvider{
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = TodoListContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, TodoListContract.PATH_TODOLIST, CODE_TODOS);
+        matcher.addURI(authority, TodoListContract.PATH_TODOLIST + "/#", CODE_TODO_WITH_ID);
         return matcher;
     }
-
-
 
 }
