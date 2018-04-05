@@ -1,6 +1,8 @@
 <resources>
     <string name="action_settings">Configuraciones</string>
     <string name="no_due_date">No hay fecha limite</string>
+    <string name="none">Ninguna</string>
+    <string name="select_date">Elija fecha</string>
     <string name="sort_by">Ordenar por</string>
     <string name="due_date">Fecha limite</string>
     <string name="priority">Prioridad</string>

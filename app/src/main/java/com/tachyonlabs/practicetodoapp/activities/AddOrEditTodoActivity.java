@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 public class AddOrEditTodoActivity extends AppCompatActivity {
     private ActivityAddOrEditTodoBinding mBinding;
+    private static final String TAG = AddOrEditTodoActivity.class.getSimpleName();
     private int todoId = -1;
 
     @Override
@@ -21,6 +24,7 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_or_edit_todo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        long dueDate;
 
         Bundle bundle = getIntent().getExtras();
         String addOrEdit = bundle.getString(getString(R.string.intent_adding_or_editing_key));
@@ -48,10 +52,14 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
                     mBinding.rbLowPriority.setChecked(true);
             }
 
-            if (todoToAddOrEdit.getDueDate() == 0) {
+            dueDate = todoToAddOrEdit.getDueDate();
+            if (dueDate == Long.MAX_VALUE) {
                 mBinding.rbNoDueDate.setChecked(true);
             } else {
-
+                mBinding.rbSelectDueDate.setChecked(true);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(dueDate);
+                mBinding.dpDueDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
             }
         }
 
@@ -60,15 +68,23 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
     public void addOrUpdateTask(View view) {
         String description = mBinding.etTaskDescription.getText().toString().trim();
         int priority = 0;
-        int dueDate = 0;
+        long dueDate = Long.MAX_VALUE;
 
         if (description.equals("")) {
             Toast.makeText(this, getString(R.string.description_cannot_be_empty), Toast.LENGTH_LONG).show();
         } else {
+            // get the priority setting
             if (mBinding.rbMediumPriority.isChecked()) {
                 priority = 1;
             } else if (mBinding.rbLowPriority.isChecked()) {
                 priority = 2;
+            }
+
+            // get the due date, if one has been selected
+            if (mBinding.rbSelectDueDate.isChecked()) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(mBinding.dpDueDate.getYear(), mBinding.dpDueDate.getMonth(), mBinding.dpDueDate.getDayOfMonth());
+                dueDate = calendar.getTimeInMillis();
             }
             Todo todo = new Todo(description, priority, dueDate, todoId);
             Intent returnIntent = new Intent();

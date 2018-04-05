@@ -20,7 +20,7 @@ public class TodoListDbHelper extends SQLiteOpenHelper {
                         TodoListContract.TodoListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         TodoListContract.TodoListEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                         TodoListContract.TodoListEntry.COLUMN_PRIORITY + " INTEGER NOT NULL, " +
-                        TodoListContract.TodoListEntry.COLUMN_DUE_DATE + " INTEGER NOT NULL);";
+                        TodoListContract.TodoListEntry.COLUMN_DUE_DATE + " LONG NOT NULL);";
 
         sqLiteDatabase.execSQL(SQL_CREATE_TODOLIST_TABLE);
     }

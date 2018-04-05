@@ -9,6 +9,7 @@ import com.tachyonlabs.practicetodoapp.models.Todo;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,13 +31,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
-public class TodoListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, TodoListAdapter.TodoListAdapterOnClickHandler {
+public class TodoListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+        TodoListAdapter.TodoListAdapterOnClickHandler,
+        SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int ADD_TASK_REQUEST = 1;
     private static final int EDIT_TASK_REQUEST = 2;
     private static final int ID_TODOLIST_LOADER = 2018;
     private RecyclerView mRecyclerView;
     private TodoListAdapter mTodoListAdapter;
     private ActivityTodoListBinding mBinding;
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,9 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
                 startActivityForResult(intent, ADD_TASK_REQUEST);
             }
         });
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         getSupportLoaderManager().initLoader(ID_TODOLIST_LOADER, null, this);
     }
@@ -87,13 +95,13 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
             final String id = String.valueOf(todo.getId());
             final Uri uri = TodoListContract.TodoListEntry.CONTENT_URI.buildUpon().appendPath(id).build();
 
-            // Wait a moment so they can actually see the check appear before the task is deleted
+            // Wait half a second so they can actually see the check appear before the task is deleted
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
                     getContentResolver().delete(uri, "_id=?", new String[]{id});
                 }
-            }, 750);
+            }, 500);
         } else {
             // edit the task
             Intent intent = new Intent(this, AddOrEditTodoActivity.class);
@@ -127,8 +135,15 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle bundle) {
         if (loaderId == ID_TODOLIST_LOADER) {
+            String sortOrderPreference = getSortOrderPreference();
+            String sortOrder;
             Uri todoListQueryUri = TodoListContract.TodoListEntry.CONTENT_URI;
-            String sortOrder = TodoListContract.TodoListEntry.COLUMN_PRIORITY + " ASC";
+            // sort order preference is the primary sort, with the other sort order as secondary
+            if (sortOrderPreference.equals(getString(R.string.priority))) {
+                sortOrder = TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE;
+            } else {
+                sortOrder = TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY;
+            }
 
             return new CursorLoader(this,
                     todoListQueryUri,
@@ -148,6 +163,21 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+    }
+
+    private String getSortOrderPreference() {
+        return mSharedPreferences.getString(getString(R.string.pref_sort_by_key), getString(R.string.priority));
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         mTodoListAdapter.swapCursor(null);
+        getSupportLoaderManager().restartLoader(ID_TODOLIST_LOADER, null, this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 }

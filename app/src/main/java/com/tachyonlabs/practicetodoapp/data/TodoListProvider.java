@@ -47,7 +47,6 @@ public class TodoListProvider extends ContentProvider{
         return cursor;
     }
 
-    @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
         return null;

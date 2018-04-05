@@ -60,10 +60,10 @@ Determining appropriate use cases for local persisted data, and designing soluti
 * [x] Construct database queries returning multiple results
 * [x] Insert new items into a database
 * [x] Update or delete existing items in a database
-* [ ] Expose a database to other applications via Content Provider
+* [x] Expose a database to other applications via Content Provider
 * [ ] Read and parse raw resources or asset files
 * [x] Create persistent preference data from user input
-* [ ] Toggle application logic based on preference values
+* [x] Toggle application logic based on preference values
 
 ### Enhanced system integration
 
