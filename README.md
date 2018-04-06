@@ -11,9 +11,9 @@ Again, the sections and individual tasks below are all from the "Exam Content" t
 
 ### Screenshots
 
-![TodoList Activity]( "TodoList Activity") &nbsp; &nbsp; ![Settings Activity]( "Settings Activity") &nbsp; &nbsp; ![Adding a new task]( "Adding a new task")
+![TodoList Activity](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/TodoListActivity.png "TodoList Activity") &nbsp; &nbsp; ![Settings Activity](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/SettingsActivity.png "Settings Activity") &nbsp; &nbsp; ![Adding a new task](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/adding-a-new-task.png "Adding a new task")
 
-![Editing an existing task - landscape layout]( "Editing an existing task - landscape layout")
+![Editing an existing task - landscape layout](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/editing-an-existing-task-landscape.png "Editing an existing task - landscape layout")
 
 ### "Exam Content" Checklist
 
