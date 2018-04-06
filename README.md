@@ -1,26 +1,26 @@
 # An in-process practice Todo app to help me prepare for Google's Associate Android Developer Certification exam
 
-### About the app/project
+## About the app/project
 
 **_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by implementing all the tasks listed on the "Exam Content" tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/). (If you continue to scroll down through this README, you'll see a checklist of all those tasks, which I'm checking off one by one as I implement them in the app.)
 
-It's also kind of a way of coming full circle for me -- I had done a [prework Todo app as part of my application for the CodePath Android for Engineers bootcamp](https://github.com/tachyonlabs/CodePath-Android-Bootcamp-Prework), so doing another Todo app as a way to use/practice all the skills that will be tested in the exam seems very appealing to me. I may even do it over again multiple times to help me really get things down and speed things up.
+It's also kind of a way of coming full circle for me -- I had done a [prework Todo app as part of my application for the CodePath Android for Engineers bootcamp](https://github.com/tachyonlabs/CodePath-Android-Bootcamp-Prework), so doing another Todo app as a way to use/practice all the skills that will be tested in the exam seems very appealing to me. 
 
-### Screenshots
+## Screenshots
 
 ![TodoList Activity](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/TodoListActivity.png "TodoList Activity") &nbsp; &nbsp; ![Settings Activity](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/SettingsActivity.png "Settings Activity") &nbsp; &nbsp; ![Adding a new task](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/adding-a-new-task.png "Adding a new task")
 
 ![Editing an existing task - landscape layout](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/editing-an-existing-task-landscape.png "Editing an existing task - landscape layout")
 
-### "Exam Content" Checklist
+## "Exam Content" Checklist
 
 On one hand, the list below seems to me like an unbelievable number of tasks to accomplish within 24 hours, but on the other hand, in the exam itself you'll be working with an already partially-done project rather than creating everything from scratch, so, well, once I actually take the exam I'll see how it goes! The checklist is working out well for showing me things that I definitely could use more work on implementing completely by myself, and things I’m not familiar with at all, and then when I’m done I’ll have examples of all of them there in one app.
 
 Again, the sections and individual tasks below are all from the "Exam Content" tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/). 
 
-_Any comments I've made below are in italic like this._
+**_Any comments I've added to the list below are in bold italic like this._**
 
-#### Testing and debugging
+### Testing and debugging
 
 Writing tests to verify that the application's logic and user interface are performing as expected, and executing those tests using the developer tools. Candidates should be able to analyze application crashes, and find common bugs such as layout errors and memory leaks. This includes working with the debuggers to step through application code and verify expected behavior.
 
@@ -28,14 +28,14 @@ Writing tests to verify that the application's logic and user interface are perf
 * [ ] Write and execute a device UI test
 * [x] Use the system log to output debug information
 
-_(As I understand it, the way the following four tasks work in the exam is that you will be given a list of bugs to fix rather than needing to hunt for bugs yourself. So I can't quite replicate that here, but I certainly found, replicated, and fixed various bugs while doing this app. :-))_
+**_(As I understand it, the way the following four tasks work in the exam is that you will be given a list of bugs to fix rather than needing to hunt for bugs yourself. So I can't quite replicate that here, but I certainly found, replicated, and fixed various bugs while doing this app. :-))_**
 
 * [x] Given a problem description, replicate the failure
 * [x] Debug and fix an application crash (uncaught exception)
 * [x] Debug and fix an activity lifecycle issue
 * [ ] Debug and fix an issue binding data to views
 
-#### Application user interface (UI) and user experience (UX)
+### Application user interface (UI) and user experience (UX)
 
 Implementation of the visual and navigational components of an application's design. This includes constructing layouts—using both XML and Java code—that consist of the standard framework UI elements as well as custom views. Candidates should have a working knowledge of using view styles and theme attributes to apply a consistent look and feel across an entire application. Understanding of how to include features that expand the application's audience through accessibility and localization may also be required.
 
@@ -52,7 +52,7 @@ Implementation of the visual and navigational components of an application's des
 * [ ] Apply content descriptions to views for accessibility
 * [ ] Add accessibility hooks to a custom view
 
-#### Fundamental application components
+### Fundamental application components
 
 Understanding of Android's top-level application components (Activity, Service, Broadcast Receiver, Content Provider) and the lifecycle associated with each one. Candidates should be able to describe the types of application logic that would be best suited for each component, and whether that component is executing in the foreground or in the background. This includes strategies for determining how and when to execute background work.
 
@@ -66,7 +66,7 @@ Understanding of Android's top-level application components (Activity, Service, 
 * [ ] Implement non-standard task stack navigation (deep links)
 * [ ] Integrate code from an external support library
 
-#### Persistent data storage
+### Persistent data storage
 
 Determining appropriate use cases for local persisted data, and designing solutions to implement data storage using files, preferences, and databases. This includes implementing strategies for bundling static data with applications, caching data from remote sources, and managing user-generated private data. Candidates should also be able to describe platform features that allow applications to store data securely and share that data with other applications in.
 
@@ -81,7 +81,7 @@ Determining appropriate use cases for local persisted data, and designing soluti
 * [x] Create persistent preference data from user input
 * [x] Toggle application logic based on preference values
 
-#### Enhanced system integration
+### Enhanced system integration
 
 Extending applications to integrate with interfaces outside the core application experience through notifications and app widgets. This includes displaying information to the user through these elements and keeping that information up to date. Candidates should also understand how to provide proper navigation from these external interfaces into the application's main task, including appropriate handling of deep links.
 
@@ -89,6 +89,6 @@ Extending applications to integrate with interfaces outside the core application
 * [ ] Implement a task to update the app widget periodically
 * [ ] Create and display a notification to the user
     
-### Notes
+## Notes
 
 I'm learning Spanish, but my Spanish is not that great, so I used Google Translate to do the Spanish UI localization strings.
