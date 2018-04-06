@@ -25,4 +25,12 @@
     <string name="update_task">Update Task</string>
     <string name="describe_your_task">Describe your task</string>
     <string name="description_cannot_be_empty">Task description cannot be empty.</string>
+
+    <!--for onSaveInstanceState in AddOrEditTodoActivity-->
+    <string name="task_description_key" translatable="false">task description</string>
+    <string name="priority_key" translatable="false">priority</string>
+    <string name="no_due_date_key" translatable="false">no due date</string>
+    <string name="year_key" translatable="false">year</string>
+    <string name="month_key" translatable="false">month</string>
+    <string name="day_key" translatable="false">day</string>
 </resources>

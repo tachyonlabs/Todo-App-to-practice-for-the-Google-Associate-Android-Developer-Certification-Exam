@@ -14,9 +14,12 @@ Writing tests to verify that the application's logic and user interface are perf
 * [ ] Write and execute a local JVM unit test
 * [ ] Write and execute a device UI test
 * [x] Use the system log to output debug information
-* [ ] Given a problem description, replicate the failure
-* [ ] Debug and fix an application crash (uncaught exception)
-* [ ] Debug and fix an activity lifecycle issue
+
+  As I understand it, the way the following four tasks work in the exam is that you will be given a list of bugs to fix rather than needing to hunt for bugs yourself. So I can't quite replicate that here, but I certainly found, replicated, and fixed various bugs while doing this app. :-)
+
+* [x] Given a problem description, replicate the failure
+* [x] Debug and fix an application crash (uncaught exception)
+* [x] Debug and fix an activity lifecycle issue
 * [ ] Debug and fix an issue binding data to views
 
 ### Application user interface (UI) and user experience (UX)

@@ -15,8 +15,8 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class AddOrEditTodoActivity extends AppCompatActivity {
-    private ActivityAddOrEditTodoBinding mBinding;
     private static final String TAG = AddOrEditTodoActivity.class.getSimpleName();
+    private ActivityAddOrEditTodoBinding mBinding;
     private int todoId = -1;
 
     @Override
@@ -30,39 +30,74 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
         String addOrEdit = bundle.getString(getString(R.string.intent_adding_or_editing_key));
 
         setTitle(addOrEdit);
-        if (addOrEdit.equals(getString(R.string.add_new_task))) {
-            // when adding a task, default to high priority and no due date
-            mBinding.rbHighPriority.setChecked(true);
-            mBinding.rbNoDueDate.setChecked(true);
-            mBinding.btnAddOrUpdateTask.setText(R.string.add_task);
-        } else {
-            mBinding.btnAddOrUpdateTask.setText(R.string.update_task);
-            Todo todoToAddOrEdit = bundle.getParcelable(getString(R.string.intent_todo_key));
-            todoId = todoToAddOrEdit.getId();
-            mBinding.etTaskDescription.setText(todoToAddOrEdit.getDescription());
+        if (savedInstanceState == null) {
+            if (addOrEdit.equals(getString(R.string.add_new_task))) {
+                // when adding a task, default to high priority and no due date
+                mBinding.rbHighPriority.setChecked(true);
+                mBinding.rbNoDueDate.setChecked(true);
+                mBinding.btnAddOrUpdateTask.setText(R.string.add_task);
+            } else {
+                mBinding.btnAddOrUpdateTask.setText(R.string.update_task);
+                Todo todoToAddOrEdit = bundle.getParcelable(getString(R.string.intent_todo_key));
+                todoId = todoToAddOrEdit.getId();
+                mBinding.etTaskDescription.setText(todoToAddOrEdit.getDescription());
 
-            switch (todoToAddOrEdit.getPriority()) {
-                case 0:
-                    mBinding.rbHighPriority.setChecked(true);
-                    break;
-                case 1:
-                    mBinding.rbMediumPriority.setChecked(true);
-                    break;
-                case 2:
-                    mBinding.rbLowPriority.setChecked(true);
+                selectPriorityRadioButton(todoToAddOrEdit.getPriority());
+
+                dueDate = todoToAddOrEdit.getDueDate();
+                if (dueDate == Long.MAX_VALUE) {
+                    mBinding.rbNoDueDate.setChecked(true);
+                } else {
+                    mBinding.rbSelectDueDate.setChecked(true);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(dueDate);
+                    mBinding.dpDueDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+                }
             }
-
-            dueDate = todoToAddOrEdit.getDueDate();
-            if (dueDate == Long.MAX_VALUE) {
+        } else {
+            mBinding.etTaskDescription.setText(savedInstanceState.getString(getString(R.string.task_description_key)));
+            selectPriorityRadioButton(savedInstanceState.getInt(getString(R.string.priority_key)));
+            boolean noDueDate = savedInstanceState.getBoolean(getString(R.string.no_due_date_key));
+            if (noDueDate) {
                 mBinding.rbNoDueDate.setChecked(true);
             } else {
                 mBinding.rbSelectDueDate.setChecked(true);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(dueDate);
-                mBinding.dpDueDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
             }
+            mBinding.dpDueDate.updateDate(savedInstanceState.getInt(getString(R.string.year_key)),
+                    savedInstanceState.getInt(getString(R.string.month_key)),
+                    savedInstanceState.getInt(getString(R.string.day_key)));
         }
+    }
 
+    private void selectPriorityRadioButton(int priority) {
+        switch (priority) {
+            case 0:
+                mBinding.rbHighPriority.setChecked(true);
+                break;
+            case 1:
+                mBinding.rbMediumPriority.setChecked(true);
+                break;
+            case 2:
+                mBinding.rbLowPriority.setChecked(true);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // save values on rotation
+        outState.putString(getString(R.string.task_description_key), mBinding.etTaskDescription.getText().toString());
+        int priority = 0;
+        if (mBinding.rbMediumPriority.isChecked()) {
+            priority = 1;
+        } else if (mBinding.rbLowPriority.isChecked()) {
+            priority = 2;
+        }
+        outState.putInt(getString(R.string.priority_key), priority);
+        outState.putBoolean(getString(R.string.no_due_date), mBinding.rbNoDueDate.isChecked());
+        outState.putInt(getString(R.string.year_key), mBinding.dpDueDate.getYear());
+        outState.putInt(getString(R.string.month_key), mBinding.dpDueDate.getMonth());
+        outState.putInt(getString(R.string.day_key), mBinding.dpDueDate.getDayOfMonth());
+        super.onSaveInstanceState(outState);
     }
 
     public void addOrUpdateTask(View view) {

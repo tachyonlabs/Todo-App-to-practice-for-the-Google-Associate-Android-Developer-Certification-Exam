@@ -7,6 +7,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <DatePicker android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dp_due_date"
+                    android:calendarViewShown="false"
+                    android:spinnersShown="true"
+                    android:datePickerMode="spinner"
+                    android:layout_marginTop="44dp"
+                    android:layout_marginRight="-8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -22,74 +33,63 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
-                style="@style/AddEditTaskRadioButtonLabels"
+                style="@style/AddEditTaskRadioButtonLabelsLandscape"
                 android:text="@string/priority"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/tv_priority_label"
                 app:layout_constraintTop_toBottomOf="@+id/et_task_description"/>
 
         <RadioGroup
-                style="@style/AddEditTaskRadioGroups"
+                style="@style/AddEditTaskRadioGroupsLandscape"
                 android:id="@+id/rg_priority"
-                android:weightSum="3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_priority_label">
 
             <RadioButton
-                    style="@style/AddEditTaskRadioButtons"
-                    android:layout_weight="1"
+                    style="@style/AddEditTaskRadioButtonsLandscape"
                     android:id="@+id/rb_high_priority"
                     android:text="@string/high"/>
 
             <RadioButton
-                    style="@style/AddEditTaskRadioButtons"
-                    android:layout_weight="1"
+                    style="@style/AddEditTaskRadioButtonsLandscape"
                     android:id="@+id/rb_medium_priority"
                     android:text="@string/medium"/>
 
             <RadioButton
-                    style="@style/AddEditTaskRadioButtons"
-                    android:layout_weight="1"
+                    style="@style/AddEditTaskRadioButtonsLandscape"
                     android:id="@+id/rb_low_priority"
                     android:text="@string/low"/>
 
         </RadioGroup>
 
         <TextView
-                style="@style/AddEditTaskRadioButtonLabels"
+                style="@style/AddEditTaskRadioButtonLabelsLandscape"
                 android:text="@string/due_date"
                 android:id="@+id/tv_due_date_label"
-                app:layout_constraintTop_toBottomOf="@+id/rg_priority"/>
-
-        <DatePicker android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/dp_due_date"
-                    android:calendarViewShown="false"
-                    android:spinnersShown="true"
-                    android:datePickerMode="spinner"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_due_date_label"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/et_task_description"
+                android:layout_marginRight="32dp"
+                app:layout_constraintStart_toStartOf="@+id/rg_due_date"/>
 
         <RadioGroup
-                style="@style/AddEditTaskRadioGroups"
+                style="@style/AddEditTaskRadioGroupsLandscape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/rg_due_date"
-                android:weightSum="3"
+                android:layout_marginRight="30dp"
+                app:layout_constraintRight_toLeftOf="@+id/dp_due_date"
                 app:layout_constraintTop_toBottomOf="@+id/tv_due_date_label">
 
-            <RadioButton
-                    style="@style/AddEditTaskRadioButtons"
-                    android:id="@+id/rb_no_due_date"
-                    android:text="@string/none"/>
+        <RadioButton
+                style="@style/AddEditTaskRadioButtonsLandscape"
+                android:id="@+id/rb_no_due_date"
+                android:text="@string/none"/>
 
-            <RadioButton
-                    style="@style/AddEditTaskRadioButtons"
-                    android:id="@+id/rb_select_due_date"
-                    android:text="@string/select_date"/>
-
-            <RadioButton
-                    style="@style/AddEditTaskRadioButtons"
-                    android:visibility="invisible"
-                    android:clickable="false"
-                    android:id="@+id/rb_invisible_for_lining_up"/>
+        <RadioButton
+                style="@style/AddEditTaskRadioButtonsLandscape"
+                android:id="@+id/rb_select_due_date"
+                android:text="@string/select_date"/>
 
         </RadioGroup>
 

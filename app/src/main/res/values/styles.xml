@@ -36,4 +36,32 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+    <!--Originally I had created a values-land directory and just put the following landscape
+        versions of the above styles in styles.xml in that directory, with the same style
+        names as the above styles, but I was getting some weird behaviors which made me think
+        items that were in the portrait versions of the styles but not the landscape ones
+        were getting propagated to the landscape ones as well, so I did it this way instead.-->
+
+    <style name="AddEditTaskRadioButtonLabelsLandscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AddEditTaskRadioGroupsLandscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginTop">6dp</item>
+    </style>
+
+    <style name="AddEditTaskRadioButtonsLandscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>
