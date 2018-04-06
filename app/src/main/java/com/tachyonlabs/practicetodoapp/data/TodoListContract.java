@@ -14,6 +14,7 @@ public class TodoListContract {
                 .appendPath(PATH_TODOLIST).build();
 
         public static final String TABLE_NAME = "todolist";
+        public static final String COLUMN_ID = "_id";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_PRIORITY = "priority";
         public static final String COLUMN_DUE_DATE = "due_date";

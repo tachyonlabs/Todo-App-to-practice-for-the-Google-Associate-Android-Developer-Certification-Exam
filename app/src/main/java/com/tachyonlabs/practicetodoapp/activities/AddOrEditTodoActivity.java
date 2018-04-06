@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
                 selectPriorityRadioButton(todoToAddOrEdit.getPriority());
 
                 dueDate = todoToAddOrEdit.getDueDate();
+                Log.d(TAG, "Due date in millis " + dueDate);
                 if (dueDate == Long.MAX_VALUE) {
                     mBinding.rbNoDueDate.setChecked(true);
                 } else {

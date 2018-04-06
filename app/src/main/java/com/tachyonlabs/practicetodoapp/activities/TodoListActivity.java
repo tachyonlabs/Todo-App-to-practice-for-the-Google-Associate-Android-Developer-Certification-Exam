@@ -34,6 +34,7 @@ import android.widget.CheckBox;
 public class TodoListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         TodoListAdapter.TodoListAdapterOnClickHandler,
         SharedPreferences.OnSharedPreferenceChangeListener {
+    private static final String TAG = TodoListActivity.class.getSimpleName();
     private static final int ADD_TASK_REQUEST = 1;
     private static final int EDIT_TASK_REQUEST = 2;
     private static final int ID_TODOLIST_LOADER = 2018;

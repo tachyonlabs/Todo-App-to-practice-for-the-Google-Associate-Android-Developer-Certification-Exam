@@ -91,7 +91,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
             mDescriptionIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION);
             mPriorityIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_PRIORITY);
             mDueDateIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DUE_DATE);
-            m_IDIndex = mCursor.getColumnIndex("_id");
+            m_IDIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_ID);
         }
         notifyDataSetChanged();
     }
