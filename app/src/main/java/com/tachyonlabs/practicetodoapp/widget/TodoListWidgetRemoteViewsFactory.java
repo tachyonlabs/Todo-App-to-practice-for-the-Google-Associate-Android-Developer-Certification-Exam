@@ -5,9 +5,11 @@ import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
+import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
@@ -39,8 +41,20 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         final long identityToken = Binder.clearCallingIdentity();
 
         Uri uri = TodoListContract.TodoListEntry.CONTENT_URI;
-        // TODO put sortorder here
-        mCursor = mContext.getContentResolver().query(uri, null, null, null, null);
+
+        // Get the current sort order from SharedPreferences
+        SharedPreferences sharedPreferencesForWidget = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String sortOrderPreference = sharedPreferencesForWidget.getString(mContext.getString(R.string.pref_sort_by_key), mContext.getString(R.string.priority));
+        String sortOrder;
+
+        // sort order preference is the primary sort, with the other sort order as secondary
+        if (sortOrderPreference.equals(mContext.getString(R.string.priority))) {
+            sortOrder = TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE;
+        } else {
+            sortOrder = TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY;
+        }
+
+        mCursor = mContext.getContentResolver().query(uri, null, null, null, sortOrder);
 
         Binder.restoreCallingIdentity(identityToken);
     }
@@ -103,7 +117,7 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
     @Override
     public int getViewTypeCount() {
-        // all the ListView items will be the same layout
+        // all the ListView items will use the same layout
         return 1;
     }
 

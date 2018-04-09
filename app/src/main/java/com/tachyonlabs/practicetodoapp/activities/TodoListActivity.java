@@ -7,6 +7,7 @@ import com.tachyonlabs.practicetodoapp.databinding.ActivityTodoListBinding;
 import com.tachyonlabs.practicetodoapp.models.Todo;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -101,6 +102,7 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
             handler.postDelayed(new Runnable() {
                 public void run() {
                     getContentResolver().delete(uri, "_id=?", new String[]{id});
+                    updateWidget();
                 }
             }, 500);
         } else {
@@ -130,7 +132,14 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
                     Uri uri = TodoListContract.TodoListEntry.CONTENT_URI.buildUpon().appendPath(id).build();
                     getContentResolver().update(uri, contentValues, "_id=?", new String[]{id});
             }
+            updateWidget();
         }
+    }
+
+    private void updateWidget() {
+        // let the widget know there's been a database or sort order change
+        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -176,6 +185,7 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         mTodoListAdapter.swapCursor(null);
         getSupportLoaderManager().restartLoader(ID_TODOLIST_LOADER, null, this);
+        updateWidget();
     }
 
     @Override

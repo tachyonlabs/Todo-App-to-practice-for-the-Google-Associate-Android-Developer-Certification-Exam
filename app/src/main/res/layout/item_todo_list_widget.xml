@@ -2,7 +2,6 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ll_widget_todo_item_layout"
         android:orientation="vertical"
         android:paddingLeft="10dp"

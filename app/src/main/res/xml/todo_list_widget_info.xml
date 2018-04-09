@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--updatePeriodMillis is 0 because the app takes care of updates-->
+<!--I would just set updatePeriodMillis to 0, because the app updates the widget when there
+is a database or sort order update, but one of the tasks on the Exam Content list is
+"Implement a task to update the app widget periodically", so updates are here, too-->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:minWidth="110dp"
+                    android:minWidth="180dp"
                     android:minHeight="180dp"
-                    android:updatePeriodMillis="864000"
+                    android:updatePeriodMillis="1800000"
                     android:resizeMode="horizontal|vertical"
                     android:initialLayout="@layout/todo_list_widget"
                     android:initialKeyguardLayout="@layout/todo_list_widget"
+                    android:previewImage="@drawable/todo_widget_preview"
                     android:widgetCategory="home_screen">
         </appwidget-provider>
-        <!--android:previewImage="@drawable/baking_app_widget_preview"-->

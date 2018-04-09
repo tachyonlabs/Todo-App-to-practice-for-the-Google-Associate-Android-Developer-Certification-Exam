@@ -10,7 +10,7 @@ It's also kind of a way of coming full circle for me -- I had done a [prework To
 
 ![TodoList Activity](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/TodoListActivity.png "TodoList Activity") &nbsp; &nbsp; ![Settings Activity](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/SettingsActivity.png "Settings Activity") &nbsp; &nbsp; ![Adding a new task](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/adding-a-new-task.png "Adding a new task")
 
-![Editing an existing task - landscape layout](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/editing-an-existing-task-landscape.png "Editing an existing task - landscape layout")
+![App Widget on home screen](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/app-widget.png "App Widget on home screen") &nbsp; &nbsp; ![Editing an existing task - landscape layout](https://github.com/tachyonlabs/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam/blob/master/editing-an-existing-task-landscape.png "Editing an existing task - landscape layout")
 
 ## "Exam Content" Checklist
 
@@ -86,7 +86,7 @@ Determining appropriate use cases for local persisted data, and designing soluti
 Extending applications to integrate with interfaces outside the core application experience through notifications and app widgets. This includes displaying information to the user through these elements and keeping that information up to date. Candidates should also understand how to provide proper navigation from these external interfaces into the application's main task, including appropriate handling of deep links.
 
 * [x] Create an app widget that displays on the device home screen
-* [ ] Implement a task to update the app widget periodically
+* [x] Implement a task to update the app widget periodically
 * [ ] Create and display a notification to the user
     
 ## Notes

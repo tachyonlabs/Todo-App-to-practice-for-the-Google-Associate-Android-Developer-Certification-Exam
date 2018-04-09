@@ -17,6 +17,7 @@
             android:textColor="@android:color/white"
             android:background="@color/colorPrimary"
             android:textSize="@dimen/widget_title_text_size"
+            android:textStyle="bold"
             android:padding="@dimen/widget_title_padding"
             android:contentDescription="@string/app_name"/>
 
