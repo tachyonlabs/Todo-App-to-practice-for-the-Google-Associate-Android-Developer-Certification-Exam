@@ -14,7 +14,7 @@ It's also kind of a way of coming full circle for me -- I had done a [prework To
 
 ## "Exam Content" Checklist
 
-On one hand, the list below seems to me like an unbelievable number of tasks to accomplish within 24 hours, but on the other hand, in the exam itself you'll be working with an already partially-done project rather than creating everything from scratch, so, well, once I actually take the exam I'll see how it goes! The checklist is working out well for showing me things that I definitely could use more work on implementing completely by myself, and things I’m not familiar with at all, and then when I’m done I’ll have examples of all of them there in one app.
+On one hand, the list below seems to me like a huge number of tasks to accomplish within 24 hours, but on the other hand, in the exam itself you'll be working with an already partially-done project rather than creating everything from scratch, so, well, once I actually take the exam I'll see how it goes! The checklist is working out well for showing me things that I definitely could use more work on implementing completely by myself, and things I’m not familiar with at all, and then when I’m done I’ll have examples of all of them there in one app.
 
 Again, the sections and individual tasks below are all from the "Exam Content" tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/). 
 
@@ -43,7 +43,7 @@ Implementation of the visual and navigational components of an application's des
 * [ ] Describe interactions between UI, background task, and data persistence
 * [x] Construct a layout using XML or Java code
 * [ ] Create a custom view class and add it to a layout
-* [ ] Implement a custom application theme
+* [x] Implement a custom application theme
 * [x] Apply a custom style to a group of common widgets
 * [x] Define a RecyclerView item list
 * [x] Bind local data to a RecyclerView list
@@ -85,10 +85,12 @@ Determining appropriate use cases for local persisted data, and designing soluti
 
 Extending applications to integrate with interfaces outside the core application experience through notifications and app widgets. This includes displaying information to the user through these elements and keeping that information up to date. Candidates should also understand how to provide proper navigation from these external interfaces into the application's main task, including appropriate handling of deep links.
 
-* [ ] Create an app widget that displays on the device home screen
+* [x] Create an app widget that displays on the device home screen
 * [ ] Implement a task to update the app widget periodically
 * [ ] Create and display a notification to the user
     
 ## Notes
 
 I'm learning Spanish, but my Spanish is not that great, so I used Google Translate to do the Spanish UI localization strings.
+
+Wow, it's much more involved to do a widget with a ListView as opposed to one that just has, say TextViews and ImageViews in it. Many thanks to [https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/](https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/).

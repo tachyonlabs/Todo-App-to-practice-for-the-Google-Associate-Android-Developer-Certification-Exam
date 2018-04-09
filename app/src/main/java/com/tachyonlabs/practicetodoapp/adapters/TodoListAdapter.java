@@ -57,6 +57,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         holder.cbTodoDescription.setText(mCursor.getString(mDescriptionIndex));
         // so deleting an item doesn't propagate the checked checkbox when the view is recycled
         holder.cbTodoDescription.setChecked(false);
+//        // ditto for not propagating a red/overdue date
+//        holder.tvTodoDueDate.setTextColor(holder.tvTodoPriority.getCurrentTextColor());
 
         String dueDateString;
         long dueDate = mCursor.getLong(mDueDateIndex);
@@ -69,6 +71,14 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
                             DateUtils.FORMAT_SHOW_YEAR |
                             DateUtils.FORMAT_ABBREV_WEEKDAY |
                             DateUtils.FORMAT_SHOW_WEEKDAY);
+            // TODO color overdue due dates red
+//            Calendar calendar = Calendar.getInstance();
+//            int year = calendar.get(Calendar.YEAR);
+//            int month = calendar.get(Calendar.MONTH);
+//            int day = calendar.get(Calendar.DATE);
+//            calendar.set(year, month, day);
+//            Log.d(TAG, calendar.getTimeInMillis() + " " + dueDate);
+//            holder.tvTodoDueDate.setTextColor(ContextCompat.getColor(mContext, R.color.colorOverdue));
         }
         int priority = mCursor.getInt(mPriorityIndex);
         holder.tvTodoDueDate.setText(dueDateString);

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--for the widget-->
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_title_text_size">16sp</dimen>
+    <dimen name="widget_title_padding">8dp</dimen>
+    <dimen name="widget_listview_padding">10dp</dimen>
+    <dimen name="widget_image_width">54dp</dimen>
+    <dimen name="widget_image_height">48dp</dimen>
+    <dimen name="widget_recipe_name_text_size">24sp</dimen>
+    <dimen name="widget_recipe_name_margin_top">2dp</dimen>
+    <dimen name="widget_text_margin_left">12dp</dimen>
+    <dimen name="widget_ingredients_margin_top">10dp</dimen>
+    <dimen name="widget_ingredients_text_size">13sp</dimen>
+</resources>

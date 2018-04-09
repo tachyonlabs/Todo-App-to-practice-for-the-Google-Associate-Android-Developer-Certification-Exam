@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--updatePeriodMillis is 0 because the app takes care of updates-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:minWidth="110dp"
+                    android:minHeight="180dp"
+                    android:updatePeriodMillis="864000"
+                    android:resizeMode="horizontal|vertical"
+                    android:initialLayout="@layout/todo_list_widget"
+                    android:initialKeyguardLayout="@layout/todo_list_widget"
+                    android:widgetCategory="home_screen">
+        </appwidget-provider>
+        <!--android:previewImage="@drawable/baking_app_widget_preview"-->
