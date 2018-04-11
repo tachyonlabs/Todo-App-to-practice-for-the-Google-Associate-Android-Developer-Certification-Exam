@@ -8,7 +8,7 @@
         android:paddingTop="8dp"
         android:paddingRight="6dp"
         android:paddingBottom="6dp"
-        android:background="@android:color/white"
+        android:background="@drawable/list_item_touch_selector"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

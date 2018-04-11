@@ -2,7 +2,7 @@ package com.tachyonlabs.practicetodoapp.adapters;
 
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
-import com.tachyonlabs.practicetodoapp.models.Todo;
+import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -107,7 +107,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     }
 
     public interface TodoListAdapterOnClickHandler {
-        void onClick(Todo todo, View view);
+        void onClick(TodoTask todoTask, View view);
     }
 
     public class TodoListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -129,11 +129,11 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         @Override
         public void onClick(View view) {
             mCursor.moveToPosition(getAdapterPosition());
-            Todo todo = new Todo(mCursor.getString(mDescriptionIndex),
+            TodoTask todoTask = new TodoTask(mCursor.getString(mDescriptionIndex),
                     mCursor.getInt(mPriorityIndex),
                     mCursor.getLong(mDueDateIndex),
                     mCursor.getInt(m_IDIndex));
-            mClickHandler.onClick(todo, view);
+            mClickHandler.onClick(todoTask, view);
         }
     }
 }

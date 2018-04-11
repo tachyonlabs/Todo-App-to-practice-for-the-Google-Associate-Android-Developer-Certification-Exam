@@ -9,12 +9,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
         <activity
                 android:name=".activities.TodoListActivity"
                 android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -28,16 +28,21 @@
         </activity>
 
         <activity
-                android:name=".activities.AddOrEditTodoActivity"
+                android:name=".activities.AddOrEditTaskActivity"
                 android:parentActivityName=".activities.TodoListActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".activities.TodoListActivity"/>
         </activity>
 
+        <activity android:name=".activities.TodoListWidgetDialogActivity"
+                  android:theme="@style/Theme.AppCompat.Dialog"
+                  android:label="@string/check_or_edit_task">
+        </activity>
+
         <provider
-                android:authorities="com.tachyonlabs.practicetodoapp"
                 android:name=".data.TodoListProvider"
+                android:authorities="com.tachyonlabs.practicetodoapp"
                 android:exported="true"/>
 
         <receiver android:name=".widget.TodoListWidgetProvider">
@@ -50,8 +55,9 @@
                     android:resource="@xml/todo_list_widget_info"/>
         </receiver>
 
-        <service android:name=".widget.TodoListWidgetRemoteViewsService"
-                 android:permission="android.permission.BIND_REMOTEVIEWS">
+        <service
+                android:name=".widget.TodoListWidgetRemoteViewsService"
+                android:permission="android.permission.BIND_REMOTEVIEWS">
         </service>
 
     </application>

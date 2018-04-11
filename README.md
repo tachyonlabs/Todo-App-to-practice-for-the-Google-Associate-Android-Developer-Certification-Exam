@@ -63,7 +63,7 @@ Understanding of Android's top-level application components (Activity, Service, 
 * [ ] Schedule a time-sensitive task using alarms
 * [ ] Schedule a background task using JobScheduler
 * [ ] Execute a background task inside of a Service
-* [ ] Implement non-standard task stack navigation (deep links)
+* [x] Implement non-standard task stack navigation (deep links)
 * [ ] Integrate code from an external support library
 
 ### Persistent data storage

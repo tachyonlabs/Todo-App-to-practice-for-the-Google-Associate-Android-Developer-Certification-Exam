@@ -3,17 +3,17 @@ package com.tachyonlabs.practicetodoapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Todo implements Parcelable {
-    public static final Parcelable.Creator<Todo> CREATOR
-            = new Parcelable.Creator<Todo>() {
+public class TodoTask implements Parcelable {
+    public static final Parcelable.Creator<TodoTask> CREATOR
+            = new Parcelable.Creator<TodoTask>() {
         @Override
-        public Todo createFromParcel(Parcel in) {
-            return new Todo(in);
+        public TodoTask createFromParcel(Parcel in) {
+            return new TodoTask(in);
         }
 
         @Override
-        public Todo[] newArray(int size) {
-            return new Todo[size];
+        public TodoTask[] newArray(int size) {
+            return new TodoTask[size];
         }
     };
     private String description;
@@ -21,14 +21,14 @@ public class Todo implements Parcelable {
     private long dueDate;
     private int id;
 
-    public Todo(String description, int priority, long dueDate, int id) {
+    public TodoTask(String description, int priority, long dueDate, int id) {
         this.description = description;
         this.priority = priority;
         this.dueDate = dueDate;
         this.id = id;
     }
 
-    private Todo(Parcel in) {
+    private TodoTask(Parcel in) {
         description = in.readString();
         priority = in.readInt();
         dueDate = in.readLong();

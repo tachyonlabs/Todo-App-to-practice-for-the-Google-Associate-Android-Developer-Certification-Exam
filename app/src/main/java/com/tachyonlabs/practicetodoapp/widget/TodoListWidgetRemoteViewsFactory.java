@@ -2,6 +2,7 @@ package com.tachyonlabs.practicetodoapp.widget;
 
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
+import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
 import android.content.Context;
 import android.content.Intent;
@@ -114,8 +115,13 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         rv.setContentDescription(R.id.iv_widget_todo_priority_star, priorityContentDescriptions[priority]);
         Log.d(TAG, priorityContentDescriptions[priority]);
 
+        TodoTask todoTask = new TodoTask(mCursor.getString(mDescriptionIndex),
+                mCursor.getInt(mPriorityIndex),
+                mCursor.getLong(mDueDateIndex),
+                mCursor.getInt(m_IDIndex));
+
         Intent fillInIntent = new Intent();
-        fillInIntent.putExtra(TodoListWidgetProvider.EXTRA_LABEL, mCursor.getString(1));
+        fillInIntent.putExtra(mContext.getString(R.string.intent_todo_key), todoTask);
         rv.setOnClickFillInIntent(R.id.ll_widget_todo_item_layout, fillInIntent);
 
         return rv;

@@ -33,4 +33,7 @@
     <string name="year_key" translatable="false">year</string>
     <string name="month_key" translatable="false">month</string>
     <string name="day_key" translatable="false">day</string>
+
+    <!--for the App Widget-->
+    <string name="check_or_edit_task">Check off or Edit Task?</string>
 </resources>

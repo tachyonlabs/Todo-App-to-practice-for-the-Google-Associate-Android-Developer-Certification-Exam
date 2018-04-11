@@ -2,6 +2,7 @@ package com.tachyonlabs.practicetodoapp.widget;
 
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.activities.TodoListActivity;
+import com.tachyonlabs.practicetodoapp.activities.TodoListWidgetDialogActivity;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -14,7 +15,6 @@ import android.widget.RemoteViews;
 
 public class TodoListWidgetProvider extends AppWidgetProvider {
     private final static String TAG = TodoListWidgetProvider.class.getSimpleName();
-    public static final String EXTRA_LABEL = "TASK_TEXT";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -37,7 +37,7 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
         // Many thanks to
         // https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/
         // for this and other techniques for using a ListView in an app widget.
-        Intent clickIntentTemplate = new Intent(context, TodoListActivity.class);
+        Intent clickIntentTemplate = new Intent(context, TodoListWidgetDialogActivity.class);
         PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
                 .addNextIntentWithParentStack(clickIntentTemplate)
                 .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

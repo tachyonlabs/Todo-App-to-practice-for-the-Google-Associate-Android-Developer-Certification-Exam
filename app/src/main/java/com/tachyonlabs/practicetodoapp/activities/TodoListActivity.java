@@ -4,11 +4,10 @@ import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.adapters.TodoListAdapter;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.databinding.ActivityTodoListBinding;
-import com.tachyonlabs.practicetodoapp.models.Todo;
+import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -61,7 +60,7 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TodoListActivity.this, AddOrEditTodoActivity.class);
+                Intent intent = new Intent(TodoListActivity.this, AddOrEditTaskActivity.class);
                 intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.add_new_task));
                 startActivityForResult(intent, ADD_TASK_REQUEST);
             }
@@ -90,11 +89,11 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     }
 
     @Override
-    public void onClick(Todo todo, View view) {
+    public void onClick(TodoTask todoTask, View view) {
         // are they checking off the task as complete, or tapping the task to edit it?
         if (view instanceof CheckBox) {
             // delete the checked-off task
-            final String id = String.valueOf(todo.getId());
+            final String id = String.valueOf(todoTask.getId());
             final Uri uri = TodoListContract.TodoListEntry.CONTENT_URI.buildUpon().appendPath(id).build();
 
             // Wait half a second so they can actually see the check appear before the task is deleted
@@ -107,9 +106,9 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
             }, 500);
         } else {
             // edit the task
-            Intent intent = new Intent(this, AddOrEditTodoActivity.class);
+            Intent intent = new Intent(this, AddOrEditTaskActivity.class);
             intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.edit_task));
-            intent.putExtra(getString(R.string.intent_todo_key), todo);
+            intent.putExtra(getString(R.string.intent_todo_key), todoTask);
             startActivityForResult(intent, EDIT_TASK_REQUEST);
         }
     }
@@ -117,21 +116,6 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            Todo todo = data.getParcelableExtra(getString(R.string.intent_todo_key));
-            String id = String.valueOf(todo.getId());
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION, todo.getDescription());
-            contentValues.put(TodoListContract.TodoListEntry.COLUMN_PRIORITY, todo.getPriority());
-            contentValues.put(TodoListContract.TodoListEntry.COLUMN_DUE_DATE, todo.getDueDate());
-
-            switch (requestCode) {
-                case ADD_TASK_REQUEST:
-                    getContentResolver().insert(TodoListContract.TodoListEntry.CONTENT_URI, contentValues);
-                    break;
-                case EDIT_TASK_REQUEST:
-                    Uri uri = TodoListContract.TodoListEntry.CONTENT_URI.buildUpon().appendPath(id).build();
-                    getContentResolver().update(uri, contentValues, "_id=?", new String[]{id});
-            }
             updateWidget();
         }
     }
@@ -183,6 +167,14 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         mTodoListAdapter.swapCursor(null);
         getSupportLoaderManager().restartLoader(ID_TODOLIST_LOADER, null, this);
+        updateWidget();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // This is so that if we've edited a task directly from the widget, the widget will still
+        // get updated when we come to this activity after clicking UPDATE TASK in AddOrEditTaskActivity
         updateWidget();
     }
 

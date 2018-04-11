@@ -1,12 +1,15 @@
 package com.tachyonlabs.practicetodoapp.activities;
 
 import com.tachyonlabs.practicetodoapp.R;
-import com.tachyonlabs.practicetodoapp.databinding.ActivityAddOrEditTodoBinding;
-import com.tachyonlabs.practicetodoapp.models.Todo;
+import com.tachyonlabs.practicetodoapp.data.TodoListContract;
+import com.tachyonlabs.practicetodoapp.databinding.ActivityAddOrEditTaskBinding;
+import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,37 +18,38 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class AddOrEditTodoActivity extends AppCompatActivity {
-    private static final String TAG = AddOrEditTodoActivity.class.getSimpleName();
-    private ActivityAddOrEditTodoBinding mBinding;
+public class AddOrEditTaskActivity extends AppCompatActivity {
+    private static final String TAG = AddOrEditTaskActivity.class.getSimpleName();
+    private ActivityAddOrEditTaskBinding mBinding;
     private int todoId = -1;
+    private String mAddOrEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_or_edit_todo);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_or_edit_task);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         long dueDate;
 
         Bundle bundle = getIntent().getExtras();
-        String addOrEdit = bundle.getString(getString(R.string.intent_adding_or_editing_key));
+        mAddOrEdit = bundle.getString(getString(R.string.intent_adding_or_editing_key));
 
-        setTitle(addOrEdit);
+        setTitle(mAddOrEdit);
         if (savedInstanceState == null) {
-            if (addOrEdit.equals(getString(R.string.add_new_task))) {
+            if (mAddOrEdit.equals(getString(R.string.add_new_task))) {
                 // when adding a task, default to high priority and no due date
                 mBinding.rbHighPriority.setChecked(true);
                 mBinding.rbNoDueDate.setChecked(true);
                 mBinding.btnAddOrUpdateTask.setText(R.string.add_task);
             } else {
                 mBinding.btnAddOrUpdateTask.setText(R.string.update_task);
-                Todo todoToAddOrEdit = bundle.getParcelable(getString(R.string.intent_todo_key));
-                todoId = todoToAddOrEdit.getId();
-                mBinding.etTaskDescription.setText(todoToAddOrEdit.getDescription());
+                TodoTask todoTaskToAddOrEdit = bundle.getParcelable(getString(R.string.intent_todo_key));
+                todoId = todoTaskToAddOrEdit.getId();
+                mBinding.etTaskDescription.setText(todoTaskToAddOrEdit.getDescription());
 
-                selectPriorityRadioButton(todoToAddOrEdit.getPriority());
+                selectPriorityRadioButton(todoTaskToAddOrEdit.getPriority());
 
-                dueDate = todoToAddOrEdit.getDueDate();
+                dueDate = todoTaskToAddOrEdit.getDueDate();
                 Log.d(TAG, "Due date in millis " + dueDate);
                 if (dueDate == Long.MAX_VALUE) {
                     mBinding.rbNoDueDate.setChecked(true);
@@ -86,7 +90,7 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        // save values on rotation
+        // save values on device rotation
         outState.putString(getString(R.string.task_description_key), mBinding.etTaskDescription.getText().toString());
         int priority = 0;
         if (mBinding.rbMediumPriority.isChecked()) {
@@ -94,6 +98,7 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
         } else if (mBinding.rbLowPriority.isChecked()) {
             priority = 2;
         }
+
         outState.putInt(getString(R.string.priority_key), priority);
         outState.putBoolean(getString(R.string.no_due_date), mBinding.rbNoDueDate.isChecked());
         outState.putInt(getString(R.string.year_key), mBinding.dpDueDate.getYear());
@@ -123,11 +128,30 @@ public class AddOrEditTodoActivity extends AppCompatActivity {
                 calendar.set(mBinding.dpDueDate.getYear(), mBinding.dpDueDate.getMonth(), mBinding.dpDueDate.getDayOfMonth());
                 dueDate = calendar.getTimeInMillis();
             }
-            Todo todo = new Todo(description, priority, dueDate, todoId);
+            TodoTask todoTask = new TodoTask(description, priority, dueDate, todoId);
+
+            insertOrUpdate(todoTask);
+
             Intent returnIntent = new Intent();
-            returnIntent.putExtra(getString(R.string.intent_todo_key), todo);
             setResult(Activity.RESULT_OK, returnIntent);
             finish();
+        }
+    }
+
+    private void insertOrUpdate(TodoTask todoTask) {
+        // I used to have this functionality in TodoListActivity's onActivityResult method, but
+        // then I couldn't reach it when editing a task directly from the App Widget
+        String id = String.valueOf(todoTask.getId());
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION, todoTask.getDescription());
+        contentValues.put(TodoListContract.TodoListEntry.COLUMN_PRIORITY, todoTask.getPriority());
+        contentValues.put(TodoListContract.TodoListEntry.COLUMN_DUE_DATE, todoTask.getDueDate());
+
+        if (mAddOrEdit.equals(getString(R.string.add_new_task))) {
+            getContentResolver().insert(TodoListContract.TodoListEntry.CONTENT_URI, contentValues);
+        } else {
+            Uri uri = TodoListContract.TodoListEntry.CONTENT_URI.buildUpon().appendPath(id).build();
+            getContentResolver().update(uri, contentValues, "_id=?", new String[]{id});
         }
     }
 }
