@@ -11,11 +11,13 @@ import android.net.Uri;
 import android.os.Binder;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+    private static final String TAG = TodoListWidgetRemoteViewsFactory.class.getSimpleName();
     private Context mContext;
     private Cursor mCursor;
     private int mDescriptionIndex;
@@ -101,11 +103,20 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         }
         int priority = mCursor.getInt(mPriorityIndex);
         int[] priorityStars = {R.drawable.ic_star_red_24dp, R.drawable.ic_star_orange_24dp, R.drawable.ic_star_yellow_24dp};
+        String[] priorityContentDescriptions = {mContext.getString(R.string.high_priority),
+                mContext.getString(R.string.medium_priority),
+                mContext.getString(R.string.low_priority)};
 
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.item_todo_list_widget);
         rv.setTextViewText(R.id.tv_widget_todo_description, mCursor.getString(mDescriptionIndex));
         rv.setTextViewText(R.id.tv_widget_todo_due_date, dueDateString);
         rv.setInt(R.id.iv_widget_todo_priority_star, "setBackgroundResource", priorityStars[priority]);
+        rv.setContentDescription(R.id.iv_widget_todo_priority_star, priorityContentDescriptions[priority]);
+        Log.d(TAG, priorityContentDescriptions[priority]);
+
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtra(TodoListWidgetProvider.EXTRA_LABEL, mCursor.getString(1));
+        rv.setOnClickFillInIntent(R.id.ll_widget_todo_item_layout, fillInIntent);
 
         return rv;
     }

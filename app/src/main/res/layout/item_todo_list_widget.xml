@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/ll_widget_todo_item_layout"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
+        android:paddingLeft="6dp"
         android:paddingTop="8dp"
         android:paddingRight="6dp"
         android:paddingBottom="6dp"
@@ -12,10 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_star_red_24dp"
+            android:id="@+id/iv_widget_todo_priority_star"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="4dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"/>
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@id/iv_widget_todo_priority_star"
             android:layout_alignParentTop="true"
             android:maxLines="1"
             android:ellipsize="end"
@@ -29,17 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Task due date"
-            android:layout_alignParentLeft="true"
+            android:layout_alignLeft="@id/tv_widget_todo_description"
             android:layout_below="@+id/tv_widget_todo_description"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
             android:id="@+id/tv_widget_todo_due_date"/>
-
-    <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_star_red_24dp"
-            android:id="@+id/iv_widget_todo_priority_star"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_widget_todo_description"/>
 
 </RelativeLayout>

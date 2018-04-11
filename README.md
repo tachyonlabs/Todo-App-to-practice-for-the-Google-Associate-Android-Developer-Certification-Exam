@@ -28,12 +28,12 @@ Writing tests to verify that the application's logic and user interface are perf
 * [ ] Write and execute a device UI test
 * [x] Use the system log to output debug information
 
-**_(As I understand it, the way the following four tasks work in the exam is that you will be given a list of bugs to fix rather than needing to hunt for bugs yourself. So I can't quite replicate that here, but I certainly found, replicated, and fixed various bugs while doing this app. :-))_**
+**_(As I understand it, the way the following four tasks work in the exam is that you will be given a list of bugs to fix rather than needing to hunt for bugs yourself. So I can't quite replicate that here, but I certainly found, replicated, and fixed bugs in these categories while doing this app. :-))_**
 
 * [x] Given a problem description, replicate the failure
 * [x] Debug and fix an application crash (uncaught exception)
 * [x] Debug and fix an activity lifecycle issue
-* [ ] Debug and fix an issue binding data to views
+* [x] Debug and fix an issue binding data to views
 
 ### Application user interface (UI) and user experience (UX)
 
@@ -49,7 +49,7 @@ Implementation of the visual and navigational components of an application's des
 * [x] Bind local data to a RecyclerView list
 * [x] Implement menu-based or drawer navigation
 * [x] Localize the application's UI text into one other language
-* [ ] Apply content descriptions to views for accessibility
+* [x] Apply content descriptions to views for accessibility
 * [ ] Add accessibility hooks to a custom view
 
 ### Fundamental application components
@@ -93,4 +93,4 @@ Extending applications to integrate with interfaces outside the core application
 
 I'm learning Spanish, but my Spanish is not that great, so I used Google Translate to do the Spanish UI localization strings.
 
-Wow, it's much more involved to do a widget with a ListView as opposed to one that just has, say TextViews and ImageViews in it. Many thanks to [https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/](https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/).
+It's more involved to do a widget with a ListView as opposed to one that just has, say TextViews and ImageViews in it. Many thanks to [https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/](https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/).

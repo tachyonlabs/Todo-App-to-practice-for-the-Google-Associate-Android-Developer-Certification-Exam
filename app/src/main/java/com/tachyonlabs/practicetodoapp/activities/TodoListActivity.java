@@ -169,8 +169,6 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mTodoListAdapter.swapCursor(data);
-//        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-//        this.sendBroadcast(intent);
     }
 
     @Override
