@@ -18,5 +18,6 @@ public class TodoListContract {
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_PRIORITY = "priority";
         public static final String COLUMN_DUE_DATE = "due_date";
+        public static final String COLUMN_COMPLETED = "completed";
     }
 }

@@ -25,6 +25,7 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
     private int mPriorityIndex;
     private int mDueDateIndex;
     private int m_IDIndex;
+    private int mPendingDeletionIndex;
 
     public TodoListWidgetRemoteViewsFactory(Context context, Intent intent) {
         mContext = context;
@@ -89,6 +90,7 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         mPriorityIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_PRIORITY);
         mDueDateIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_DUE_DATE);
         m_IDIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_ID);
+        mPendingDeletionIndex = mCursor.getColumnIndex(TodoListContract.TodoListEntry.COLUMN_COMPLETED);
 
         String dueDateString;
         long dueDate = mCursor.getLong(mDueDateIndex);
@@ -118,7 +120,8 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         TodoTask todoTask = new TodoTask(mCursor.getString(mDescriptionIndex),
                 mCursor.getInt(mPriorityIndex),
                 mCursor.getLong(mDueDateIndex),
-                mCursor.getInt(m_IDIndex));
+                mCursor.getInt(m_IDIndex),
+                mCursor.getInt(mPendingDeletionIndex));
 
         Intent fillInIntent = new Intent();
         fillInIntent.putExtra(mContext.getString(R.string.intent_todo_key), todoTask);

@@ -8,6 +8,7 @@ import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -38,6 +39,9 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     private static final int ADD_TASK_REQUEST = 1;
     private static final int EDIT_TASK_REQUEST = 2;
     private static final int ID_TODOLIST_LOADER = 2018;
+    private static final int COMPLETED = 1;
+    private static final int NOT_COMPLETED = 0;
+
     private RecyclerView mRecyclerView;
     private TodoListAdapter mTodoListAdapter;
     private ActivityTodoListBinding mBinding;
@@ -92,24 +96,40 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     public void onClick(TodoTask todoTask, View view) {
         // are they checking off the task as complete, or tapping the task to edit it?
         if (view instanceof CheckBox) {
-            // delete the checked-off task
+            // checking off task gets it flagged for deletion soon, and unchecking it reprieves it
             final String id = String.valueOf(todoTask.getId());
             final Uri uri = TodoListContract.TodoListEntry.CONTENT_URI.buildUpon().appendPath(id).build();
+            int isCompleted;
+
+            final ContentValues contentValues = new ContentValues();
+            contentValues.put(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION, todoTask.getDescription());
+            contentValues.put(TodoListContract.TodoListEntry.COLUMN_PRIORITY, todoTask.getPriority());
+            contentValues.put(TodoListContract.TodoListEntry.COLUMN_DUE_DATE, todoTask.getDueDate());
+
+            if (((CheckBox) view).isChecked()) {
+                isCompleted = COMPLETED;
+            } else {
+                isCompleted = NOT_COMPLETED;
+            }
+
+            contentValues.put(TodoListContract.TodoListEntry.COLUMN_COMPLETED, isCompleted);
 
             // Wait half a second so they can actually see the check appear before the task is deleted
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    getContentResolver().delete(uri, "_id=?", new String[]{id});
+                    getContentResolver().update(uri, contentValues, "_id=?", new String[]{id});
                     updateWidget();
                 }
             }, 500);
         } else {
-            // edit the task
-            Intent intent = new Intent(this, AddOrEditTaskActivity.class);
-            intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.edit_task));
-            intent.putExtra(getString(R.string.intent_todo_key), todoTask);
-            startActivityForResult(intent, EDIT_TASK_REQUEST);
+            // edit the task if it's not already completed
+            if (todoTask.getCompleted() == NOT_COMPLETED) {
+                Intent intent = new Intent(this, AddOrEditTaskActivity.class);
+                intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.edit_task));
+                intent.putExtra(getString(R.string.intent_todo_key), todoTask);
+                startActivityForResult(intent, EDIT_TASK_REQUEST);
+            }
         }
     }
 
@@ -134,9 +154,9 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
             Uri todoListQueryUri = TodoListContract.TodoListEntry.CONTENT_URI;
             // sort order preference is the primary sort, with the other sort order as secondary
             if (sortOrderPreference.equals(getString(R.string.priority))) {
-                sortOrder = TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE;
+                sortOrder = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE;
             } else {
-                sortOrder = TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY;
+                sortOrder = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY;
             }
 
             return new CursorLoader(this,

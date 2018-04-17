@@ -24,6 +24,9 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
     private int todoId = -1;
     private String mAddOrEdit;
 
+    // we don't add or edit tasks that are pending deletion
+    private final static int NOT_COMPLETED = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +131,7 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
                 calendar.set(mBinding.dpDueDate.getYear(), mBinding.dpDueDate.getMonth(), mBinding.dpDueDate.getDayOfMonth());
                 dueDate = calendar.getTimeInMillis();
             }
-            TodoTask todoTask = new TodoTask(description, priority, dueDate, todoId);
+            TodoTask todoTask = new TodoTask(description, priority, dueDate, todoId, NOT_COMPLETED);
 
             insertOrUpdate(todoTask);
 
@@ -146,6 +149,7 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
         contentValues.put(TodoListContract.TodoListEntry.COLUMN_DESCRIPTION, todoTask.getDescription());
         contentValues.put(TodoListContract.TodoListEntry.COLUMN_PRIORITY, todoTask.getPriority());
         contentValues.put(TodoListContract.TodoListEntry.COLUMN_DUE_DATE, todoTask.getDueDate());
+        contentValues.put(TodoListContract.TodoListEntry.COLUMN_COMPLETED, todoTask.getCompleted());
 
         if (mAddOrEdit.equals(getString(R.string.add_new_task))) {
             getContentResolver().insert(TodoListContract.TodoListEntry.CONTENT_URI, contentValues);

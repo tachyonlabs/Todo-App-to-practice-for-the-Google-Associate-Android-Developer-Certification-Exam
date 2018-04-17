@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:paddingLeft="6dp"
         android:paddingTop="8dp"
-        android:paddingRight="6dp"
+        android:paddingRight="8dp"
         android:paddingBottom="6dp"
         android:background="@drawable/list_item_touch_selector"
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TodoListDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "todolist.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     public TodoListDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -20,7 +20,8 @@ public class TodoListDbHelper extends SQLiteOpenHelper {
                         TodoListContract.TodoListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         TodoListContract.TodoListEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                         TodoListContract.TodoListEntry.COLUMN_PRIORITY + " INTEGER NOT NULL, " +
-                        TodoListContract.TodoListEntry.COLUMN_DUE_DATE + " LONG NOT NULL);";
+                        TodoListContract.TodoListEntry.COLUMN_DUE_DATE + " LONG NOT NULL, " +
+                        TodoListContract.TodoListEntry.COLUMN_COMPLETED + " INTEGER NOT NULL);";
 
         sqLiteDatabase.execSQL(SQL_CREATE_TODOLIST_TABLE);
     }
@@ -30,5 +31,4 @@ public class TodoListDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TodoListContract.TodoListEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
-
 }

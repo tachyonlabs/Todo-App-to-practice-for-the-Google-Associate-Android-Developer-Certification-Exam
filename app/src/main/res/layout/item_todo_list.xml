@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_todo_list_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
@@ -11,7 +12,7 @@
         android:paddingBottom="8dp"
         android:background="@drawable/list_item_touch_selector">
 
-    <CheckBox
+    <android.support.v7.widget.AppCompatCheckBox
             tools:text="A todoTask description"
             android:id="@+id/cb_todo_description"
             android:layout_width="wrap_content"
@@ -19,6 +20,8 @@
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 

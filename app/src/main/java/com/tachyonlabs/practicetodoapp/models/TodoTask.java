@@ -20,12 +20,14 @@ public class TodoTask implements Parcelable {
     private int priority;
     private long dueDate;
     private int id;
+    private int completed;
 
-    public TodoTask(String description, int priority, long dueDate, int id) {
+    public TodoTask(String description, int priority, long dueDate, int id, int completed) {
         this.description = description;
         this.priority = priority;
         this.dueDate = dueDate;
         this.id = id;
+        this.completed = completed;
     }
 
     private TodoTask(Parcel in) {
@@ -33,6 +35,7 @@ public class TodoTask implements Parcelable {
         priority = in.readInt();
         dueDate = in.readLong();
         id = in.readInt();
+        completed = in.readInt();
     }
 
     @Override
@@ -46,6 +49,7 @@ public class TodoTask implements Parcelable {
         parcel.writeInt(priority);
         parcel.writeLong(dueDate);
         parcel.writeInt(id);
+        parcel.writeInt(completed);
     }
 
     public String getDescription() {
@@ -78,5 +82,13 @@ public class TodoTask implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(int completed) {
+        this.completed = completed;
     }
 }
