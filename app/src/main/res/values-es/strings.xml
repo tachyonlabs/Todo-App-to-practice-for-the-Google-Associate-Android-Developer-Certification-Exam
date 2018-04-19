@@ -12,8 +12,14 @@
     <string name="high_priority">Prioridad alta</string>
     <string name="low_priority">Prioridad baja</string>
     <string name="medium_priority">Prioridad media</string>
+    <string name="completed">Realizado</string>
     <string name="add_new_task">Agregar Nueva Tarea</string>
     <string name="edit_task">Editar Tarea</string>
     <string name="add_task">Agregar Tarea</string>
     <string name="update_task">Cambiar la Tarea</string>
+
+    <!--for the App Widget-->
+    <string name="complete_or_edit_task">¿Completar o Editar Tarea?</string>
+    <string name="task_done">Tarea Hecha</string>
+    <string name="cancel">Cancelar</string>
 </resources>

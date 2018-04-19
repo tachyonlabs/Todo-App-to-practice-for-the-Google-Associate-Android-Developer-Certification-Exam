@@ -6,4 +6,6 @@
     <color name="colorAccent">#9C27B0</color>
     <color name="colorOverdue">#E53935</color>
     <color name="colorCompleted">#9E9E9E</color>
+    <color name="colorCompletedBackground">#EEEEEE</color>
+    <color name="colorUncompletedBackground">#FFFFFF</color>
 </resources>

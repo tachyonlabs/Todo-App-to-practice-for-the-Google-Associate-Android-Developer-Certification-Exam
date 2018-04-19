@@ -17,6 +17,7 @@
     <string name="high_priority">High priority</string>
     <string name="low_priority">Low priority</string>
     <string name="medium_priority">Medium priority</string>
+    <string name="completed">Completed</string>
     <string name="intent_adding_or_editing_key" translatable="false">Adding or editing</string>
     <string name="intent_todo_key" translatable="false">Todo</string>
     <string name="add_new_task">Add New Task</string>
@@ -35,5 +36,7 @@
     <string name="day_key" translatable="false">day</string>
 
     <!--for the App Widget-->
-    <string name="check_or_edit_task">Check off or Edit Task?</string>
+    <string name="complete_or_edit_task">Complete or Edit Task?</string>
+    <string name="task_done">Task Done</string>
+    <string name="cancel">Cancel</string>
 </resources>

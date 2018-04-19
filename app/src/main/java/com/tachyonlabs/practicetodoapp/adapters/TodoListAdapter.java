@@ -118,13 +118,16 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         if (isCompleted == COMPLETED) {
             // if the task is completed, we want everything grey, and no touch selector behavior
             holder.clTodoListItem.setBackground(null);
+            holder.clTodoListItem.setBackgroundColor(mContext.getResources().getColor(R.color.colorCompletedBackground));
             holder.cbTodoDescription.setTextColor(mContext.getResources().getColor(R.color.colorCompleted));
             holder.cbTodoDescription.setSupportButtonTintList(completedCheckboxColors);
+            holder.tvTodoPriority.setText(mContext.getResources().getString(R.string.completed));
             holder.ivTodoPriorityStar.setBackground(completedStar);
         } else {
             holder.clTodoListItem.setBackground(mContext.getResources().getDrawable(R.drawable.list_item_touch_selector));
             holder.cbTodoDescription.setTextColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
             holder.cbTodoDescription.setSupportButtonTintList(unCompletedCheckboxColors);
+            holder.tvTodoPriority.setText(mContext.getResources().getStringArray(R.array.priorities)[priority]);
             holder.ivTodoPriorityStar.setBackground(priorityStars[priority]);
         }
     }

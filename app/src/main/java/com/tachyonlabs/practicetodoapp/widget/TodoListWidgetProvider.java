@@ -29,11 +29,6 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, titleIntent, 0);
         views.setOnClickPendingIntent(R.id.tv_widget_header, pendingIntent);
 
-        // template to handle the click listener for each item
-        // Right now all it does is bring up TodoListActivity -- maybe later there will
-        // be a dialog or some other method to specify for a task that you tap in the
-        // widget, whether you want to check it off as completed (you can't have an
-        // actual checkbox in a widget) or edit it.
         // Many thanks to
         // https://www.sitepoint.com/killer-way-to-show-a-list-of-items-in-android-collection-widget/
         // for this and other techniques for using a ListView in an app widget.
@@ -64,6 +59,5 @@ public class TodoListWidgetProvider extends AppWidgetProvider {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.lv_widget);
         super.onReceive(context, intent);
     }
-
 
 }

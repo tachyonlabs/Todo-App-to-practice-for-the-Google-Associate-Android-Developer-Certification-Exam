@@ -94,7 +94,7 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onClick(TodoTask todoTask, View view) {
-        // are they checking off the task as complete, or tapping the task to edit it?
+        // are they checking or unchecking the task checkbox, or tapping the task to edit it?
         if (view instanceof CheckBox) {
             // checking off task gets it flagged for deletion soon, and unchecking it reprieves it
             final String id = String.valueOf(todoTask.getId());
@@ -114,7 +114,8 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
 
             contentValues.put(TodoListContract.TodoListEntry.COLUMN_COMPLETED, isCompleted);
 
-            // Wait half a second so they can actually see the check appear before the task is deleted
+            // Wait half a second so they can briefly see the check appear or disappear before
+            // the task is moved to or from the bottom
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {

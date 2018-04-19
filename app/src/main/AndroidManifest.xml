@@ -37,7 +37,7 @@
 
         <activity android:name=".activities.TodoListWidgetDialogActivity"
                   android:theme="@style/Theme.AppCompat.Dialog"
-                  android:label="@string/check_or_edit_task">
+                  android:label="@string/complete_or_edit_task">
         </activity>
 
         <provider

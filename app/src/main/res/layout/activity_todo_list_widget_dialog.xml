@@ -15,32 +15,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_widget_dialog_instructions"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:lineSpacingMultiplier="1.2"
+                android:textSize="16sp"
                 android:paddingBottom="16dp"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         <Button
-                android:text="Task Done"
+                android:text="@string/task_done"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_chainStyle="spread"
-                android:id="@+id/button"
+                android:id="@+id/btn_left_widget_dialog"
                 android:layout_marginRight="4dp"
-                android:onClick="taskDone"
+                android:onClick="taskCheckOrUncheck"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button2"
+                app:layout_constraintEnd_toStartOf="@+id/btn_right_widget_dialog"
                 app:layout_constraintTop_toBottomOf="@+id/tv_widget_dialog_instructions"/>
 
         <Button
-                android:text="Edit task"
+                android:text="@string/edit_task"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 android:layout_marginLeft="4dp"
-                android:id="@+id/button2"
+                android:id="@+id/btn_right_widget_dialog"
                 android:onClick="editTask"
-                app:layout_constraintStart_toEndOf="@id/button"
+                app:layout_constraintStart_toEndOf="@id/btn_left_widget_dialog"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_widget_dialog_instructions"/>
 
