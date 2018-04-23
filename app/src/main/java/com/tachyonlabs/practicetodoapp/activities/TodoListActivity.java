@@ -124,13 +124,11 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
                 }
             }, 500);
         } else {
-            // edit the task if it's not already completed
-            if (todoTask.getCompleted() == NOT_COMPLETED) {
-                Intent intent = new Intent(this, AddOrEditTaskActivity.class);
-                intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.edit_task));
-                intent.putExtra(getString(R.string.intent_todo_key), todoTask);
-                startActivityForResult(intent, EDIT_TASK_REQUEST);
-            }
+            // edit the task
+            Intent intent = new Intent(this, AddOrEditTaskActivity.class);
+            intent.putExtra(getString(R.string.intent_adding_or_editing_key), getString(R.string.edit_task));
+            intent.putExtra(getString(R.string.intent_todo_key), todoTask);
+            startActivityForResult(intent, EDIT_TASK_REQUEST);
         }
     }
 

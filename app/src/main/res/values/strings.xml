@@ -34,9 +34,13 @@
     <string name="year_key" translatable="false">year</string>
     <string name="month_key" translatable="false">month</string>
     <string name="day_key" translatable="false">day</string>
+    <string name="completed_key" translatable="false">completed</string>
+    <string name="add_or_edit_key" translatable="false">add or edit</string>
+    <string name="id_key" translatable="false">id</string>
 
     <!--for the App Widget-->
     <string name="complete_or_edit_task">Complete or Edit Task?</string>
     <string name="task_done">Task Done</string>
     <string name="cancel">Cancel</string>
+    <string name="completion">Completion</string>
 </resources>

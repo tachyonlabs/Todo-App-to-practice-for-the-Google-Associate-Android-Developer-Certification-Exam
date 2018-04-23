@@ -23,6 +23,7 @@
 
         <TextView
                 style="@style/AddEditTaskRadioButtonLabels"
+                android:layout_marginTop="24dp"
                 android:text="@string/priority"
                 android:id="@+id/tv_priority_label"
                 app:layout_constraintTop_toBottomOf="@+id/et_task_description"/>
@@ -55,6 +56,7 @@
 
         <TextView
                 style="@style/AddEditTaskRadioButtonLabels"
+                android:layout_marginTop="24dp"
                 android:text="@string/due_date"
                 android:id="@+id/tv_due_date_label"
                 app:layout_constraintTop_toBottomOf="@+id/rg_priority"/>
@@ -67,6 +69,7 @@
                     android:datePickerMode="spinner"
                     app:layout_constraintTop_toBottomOf="@+id/tv_due_date_label"
                     android:layout_marginTop="16dp"
+                    android:paddingBottom="6dp"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
         <RadioGroup
@@ -105,6 +108,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                style="@style/AddEditTaskRadioButtonLabels"
+                android:text="@string/completion"
+                android:id="@+id/tv_completion_label"
+                app:layout_constraintBottom_toBottomOf="@+id/dp_due_date"/>
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Task completed"
+                app:layout_constraintTop_toBottomOf="@+id/tv_completion_label"
+                android:id="@+id/cb_task_completed"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -13,7 +13,6 @@
     <style name="AddEditTaskRadioButtonLabels">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">24dp</item>
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
@@ -45,7 +44,7 @@
     <style name="AddEditTaskRadioButtonLabelsLandscape">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginTop">12dp</item>
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>

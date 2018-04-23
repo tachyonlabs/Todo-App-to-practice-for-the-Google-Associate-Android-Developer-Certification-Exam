@@ -35,11 +35,6 @@
                     android:value=".activities.TodoListActivity"/>
         </activity>
 
-        <activity android:name=".activities.TodoListWidgetDialogActivity"
-                  android:theme="@style/Theme.AppCompat.Dialog"
-                  android:label="@string/complete_or_edit_task">
-        </activity>
-
         <provider
                 android:name=".data.TodoListProvider"
                 android:authorities="com.tachyonlabs.practicetodoapp"

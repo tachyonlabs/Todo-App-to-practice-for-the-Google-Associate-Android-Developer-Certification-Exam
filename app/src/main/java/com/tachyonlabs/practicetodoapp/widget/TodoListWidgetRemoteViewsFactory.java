@@ -138,9 +138,8 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
         Intent fillInIntent = new Intent();
         fillInIntent.putExtra(mContext.getString(R.string.intent_todo_key), todoTask);
+        fillInIntent.putExtra(mContext.getString(R.string.intent_adding_or_editing_key), mContext.getString(R.string.edit_task));
         rv.setOnClickFillInIntent(R.id.ll_widget_todo_item_layout, fillInIntent);
-
-
 
         return rv;
     }

@@ -3,7 +3,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <android.support.constraint.ConstraintLayout
-            android:padding="16dp"
+            android:paddingTop="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -13,7 +16,7 @@
                     android:calendarViewShown="false"
                     android:spinnersShown="true"
                     android:datePickerMode="spinner"
-                    android:layout_marginTop="44dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginRight="-8dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
@@ -105,6 +108,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+                style="@style/AddEditTaskRadioButtonLabels"
+                android:text="@string/completion"
+                android:id="@+id/tv_completion_label"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/dp_due_date"/>
+
+        <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task completed"
+                app:layout_constraintBottom_toTopOf="@+id/btn_add_or_update_task"
+                android:layout_marginBottom="12dp"
+                android:id="@+id/cb_task_completed"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

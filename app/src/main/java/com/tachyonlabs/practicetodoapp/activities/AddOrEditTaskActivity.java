@@ -21,10 +21,10 @@ import java.util.Calendar;
 public class AddOrEditTaskActivity extends AppCompatActivity {
     private static final String TAG = AddOrEditTaskActivity.class.getSimpleName();
     private ActivityAddOrEditTaskBinding mBinding;
-    private int todoId = -1;
+    private int mTaskId = -1;
     private String mAddOrEdit;
 
-    // we don't add or edit tasks that are pending deletion
+    private final static int COMPLETED = 1;
     private final static int NOT_COMPLETED = 0;
 
     @Override
@@ -33,21 +33,19 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_or_edit_task);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         long dueDate;
+        int taskCompleted;
 
-        Bundle bundle = getIntent().getExtras();
-        mAddOrEdit = bundle.getString(getString(R.string.intent_adding_or_editing_key));
-
-        setTitle(mAddOrEdit);
         if (savedInstanceState == null) {
+            Bundle bundle = getIntent().getExtras();
+            mAddOrEdit = bundle.getString(getString(R.string.intent_adding_or_editing_key));
+
             if (mAddOrEdit.equals(getString(R.string.add_new_task))) {
                 // when adding a task, default to high priority and no due date
                 mBinding.rbHighPriority.setChecked(true);
                 mBinding.rbNoDueDate.setChecked(true);
-                mBinding.btnAddOrUpdateTask.setText(R.string.add_task);
             } else {
-                mBinding.btnAddOrUpdateTask.setText(R.string.update_task);
                 TodoTask todoTaskToAddOrEdit = bundle.getParcelable(getString(R.string.intent_todo_key));
-                todoId = todoTaskToAddOrEdit.getId();
+                mTaskId = todoTaskToAddOrEdit.getId();
                 mBinding.etTaskDescription.setText(todoTaskToAddOrEdit.getDescription());
 
                 selectPriorityRadioButton(todoTaskToAddOrEdit.getPriority());
@@ -62,8 +60,13 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
                     calendar.setTimeInMillis(dueDate);
                     mBinding.dpDueDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 }
+
+                taskCompleted = todoTaskToAddOrEdit.getCompleted();
+                mBinding.cbTaskCompleted.setChecked(taskCompleted == COMPLETED);
             }
         } else {
+            mAddOrEdit = savedInstanceState.getString(getString(R.string.add_or_edit_key));
+            mTaskId = savedInstanceState.getInt(getString(R.string.id_key));
             mBinding.etTaskDescription.setText(savedInstanceState.getString(getString(R.string.task_description_key)));
             selectPriorityRadioButton(savedInstanceState.getInt(getString(R.string.priority_key)));
             boolean noDueDate = savedInstanceState.getBoolean(getString(R.string.no_due_date_key));
@@ -75,6 +78,17 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
             mBinding.dpDueDate.updateDate(savedInstanceState.getInt(getString(R.string.year_key)),
                     savedInstanceState.getInt(getString(R.string.month_key)),
                     savedInstanceState.getInt(getString(R.string.day_key)));
+
+            mBinding.cbTaskCompleted.setChecked(savedInstanceState.getBoolean(getString(R.string.completed_key)));
+        }
+        setTitle(mAddOrEdit);
+
+        if (mAddOrEdit.equals(getString(R.string.add_new_task))) {
+            mBinding.btnAddOrUpdateTask.setText(R.string.add_task);
+            mBinding.tvCompletionLabel.setVisibility(View.INVISIBLE);
+            mBinding.cbTaskCompleted.setVisibility(View.INVISIBLE);
+        } else {
+            mBinding.btnAddOrUpdateTask.setText(R.string.update_task);
         }
     }
 
@@ -107,12 +121,16 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
         outState.putInt(getString(R.string.year_key), mBinding.dpDueDate.getYear());
         outState.putInt(getString(R.string.month_key), mBinding.dpDueDate.getMonth());
         outState.putInt(getString(R.string.day_key), mBinding.dpDueDate.getDayOfMonth());
+        outState.putBoolean(getString(R.string.completed_key), mBinding.cbTaskCompleted.isChecked());
+        outState.putString(getString(R.string.add_or_edit_key), mAddOrEdit);
+        outState.putInt(getString(R.string.id_key), mTaskId);
         super.onSaveInstanceState(outState);
     }
 
     public void addOrUpdateTask(View view) {
         String description = mBinding.etTaskDescription.getText().toString().trim();
         int priority = 0;
+        int isCompleted;
         long dueDate = Long.MAX_VALUE;
 
         if (description.equals("")) {
@@ -131,7 +149,14 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
                 calendar.set(mBinding.dpDueDate.getYear(), mBinding.dpDueDate.getMonth(), mBinding.dpDueDate.getDayOfMonth());
                 dueDate = calendar.getTimeInMillis();
             }
-            TodoTask todoTask = new TodoTask(description, priority, dueDate, todoId, NOT_COMPLETED);
+
+            if (mBinding.cbTaskCompleted.isChecked()) {
+                isCompleted = COMPLETED;
+            } else {
+                isCompleted = NOT_COMPLETED;
+            }
+
+            TodoTask todoTask = new TodoTask(description, priority, dueDate, mTaskId, isCompleted);
 
             insertOrUpdate(todoTask);
 
