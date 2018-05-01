@@ -1,9 +1,14 @@
 package com.tachyonlabs.practicetodoapp.models;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.format.DateUtils;
 
 public class TodoTask implements Parcelable {
+    public final static int TASK_COMPLETED = 1;
+    public final static int TASK_NOT_COMPLETED = 0;
+    public final static long NO_DUE_DATE = Long.MAX_VALUE;
     public static final Parcelable.Creator<TodoTask> CREATOR
             = new Parcelable.Creator<TodoTask>() {
         @Override
@@ -90,5 +95,15 @@ public class TodoTask implements Parcelable {
 
     public void setCompleted(int completed) {
         this.completed = completed;
+    }
+
+    public static String formatDueDate(Context context, long dueDateInMillis) {
+        String formattedDueDateString = DateUtils.formatDateTime(context, dueDateInMillis,
+                DateUtils.FORMAT_SHOW_DATE |
+                        DateUtils.FORMAT_ABBREV_MONTH |
+                        DateUtils.FORMAT_SHOW_YEAR |
+                        DateUtils.FORMAT_ABBREV_WEEKDAY |
+                        DateUtils.FORMAT_SHOW_WEEKDAY);
+        return formattedDueDateString;
     }
 }

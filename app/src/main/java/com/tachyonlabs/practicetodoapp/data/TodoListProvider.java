@@ -11,8 +11,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public class TodoListProvider extends ContentProvider{
-    public static final int CODE_TODOS = 100;
-    public static final int CODE_TODO_WITH_ID = 101;
+    public static final int CODE_TASKS = 100;
+    public static final int CODE_TASK_WITH_ID = 101;
+    // tasks are sorted first by completion, then by the selected sort order, then by the other
+    // sort order, then by the description
+    public static final String SORT_ORDER_PRIORITY = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_DESCRIPTION;
+    public static final String SORT_ORDER_DUEDATE = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DESCRIPTION;
 
     private static UriMatcher sUriMatcher = buildUriMatcher();
     private TodoListDbHelper mOpenHelper;
@@ -29,7 +33,7 @@ public class TodoListProvider extends ContentProvider{
         Cursor cursor;
 
         switch (sUriMatcher.match(uri)) {
-            case CODE_TODOS:
+            case CODE_TASKS:
                 cursor = mOpenHelper.getReadableDatabase().query(
                         TodoListContract.TodoListEntry.TABLE_NAME,
                         projection,
@@ -60,7 +64,7 @@ public class TodoListProvider extends ContentProvider{
         Uri returnUri;
 
         switch (match) {
-            case CODE_TODOS:
+            case CODE_TASKS:
                 long id = db.insert(TodoListContract.TodoListEntry.TABLE_NAME, null, contentValues);
                 if ( id > 0 ) {
                     returnUri = ContentUris.withAppendedId(TodoListContract.TodoListEntry.CONTENT_URI, id);
@@ -83,7 +87,10 @@ public class TodoListProvider extends ContentProvider{
         int tasksDeleted;
 
         switch (match) {
-            case CODE_TODO_WITH_ID:
+            case CODE_TASK_WITH_ID:
+                tasksDeleted = db.delete(TodoListContract.TodoListEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case CODE_TASKS:
                 tasksDeleted = db.delete(TodoListContract.TodoListEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
@@ -104,7 +111,7 @@ public class TodoListProvider extends ContentProvider{
         int tasksUpdated;
 
         switch (match) {
-            case CODE_TODO_WITH_ID:
+            case CODE_TASK_WITH_ID:
                 tasksUpdated = db.update(TodoListContract.TodoListEntry.TABLE_NAME, contentValues, selection, selectionArgs);
                 break;
             default:
@@ -121,8 +128,8 @@ public class TodoListProvider extends ContentProvider{
     public static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = TodoListContract.CONTENT_AUTHORITY;
-        matcher.addURI(authority, TodoListContract.PATH_TODOLIST, CODE_TODOS);
-        matcher.addURI(authority, TodoListContract.PATH_TODOLIST + "/#", CODE_TODO_WITH_ID);
+        matcher.addURI(authority, TodoListContract.PATH_TODOLIST, CODE_TASKS);
+        matcher.addURI(authority, TodoListContract.PATH_TODOLIST + "/#", CODE_TASK_WITH_ID);
         return matcher;
     }
 

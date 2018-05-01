@@ -2,6 +2,7 @@ package com.tachyonlabs.practicetodoapp.widget;
 
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
+import com.tachyonlabs.practicetodoapp.data.TodoListProvider;
 import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
 import android.content.Context;
@@ -11,7 +12,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
@@ -19,7 +19,6 @@ import android.widget.RemoteViewsService;
 
 public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private static final String TAG = TodoListWidgetRemoteViewsFactory.class.getSimpleName();
-    private final static int COMPLETED = 1;
     private Context mContext;
     private Cursor mCursor;
     private int mDescriptionIndex;
@@ -54,9 +53,9 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
         // sort order preference is the primary sort, with the other sort order as secondary
         if (sortOrderPreference.equals(mContext.getString(R.string.priority))) {
-            sortOrder = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE;
+            sortOrder = TodoListProvider.SORT_ORDER_PRIORITY;
         } else {
-            sortOrder = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY;
+            sortOrder = TodoListProvider.SORT_ORDER_DUEDATE;
         }
 
         mCursor = mContext.getContentResolver().query(uri, null, null, null, sortOrder);
@@ -95,15 +94,10 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
         String dueDateString;
         long dueDate = mCursor.getLong(mDueDateIndex);
-        if (dueDate == Long.MAX_VALUE) {
+        if (dueDate == TodoTask.NO_DUE_DATE) {
             dueDateString = mContext.getString(R.string.no_due_date);
         } else {
-            dueDateString = DateUtils.formatDateTime(mContext, dueDate,
-                    DateUtils.FORMAT_SHOW_DATE |
-                            DateUtils.FORMAT_ABBREV_MONTH |
-                            DateUtils.FORMAT_SHOW_YEAR |
-                            DateUtils.FORMAT_ABBREV_WEEKDAY |
-                            DateUtils.FORMAT_SHOW_WEEKDAY);
+            dueDateString = TodoTask.formatDueDate(mContext, dueDate);
         }
         int[] priorityStars = {R.drawable.ic_star_red_24dp, R.drawable.ic_star_orange_24dp, R.drawable.ic_star_yellow_24dp};
         int completedStar = R.drawable.ic_star_grey_24dp;
@@ -118,7 +112,7 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         rv.setContentDescription(R.id.iv_widget_todo_priority_star, priorityContentDescriptions[priority]);
         Log.d(TAG, priorityContentDescriptions[priority]);
 
-        if (isCompleted == COMPLETED) {
+        if (isCompleted == TodoTask.TASK_COMPLETED) {
             rv.setTextColor(R.id.tv_widget_todo_description, mContext.getResources().getColor(R.color.colorCompleted));
             rv.setInt(R.id.iv_widget_todo_priority_star, "setBackgroundResource", completedStar);
             rv.setTextViewText(R.id.tv_widget_todo_due_date, mContext.getString(R.string.completed));

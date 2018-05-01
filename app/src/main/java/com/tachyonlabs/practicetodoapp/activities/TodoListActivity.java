@@ -3,6 +3,7 @@ package com.tachyonlabs.practicetodoapp.activities;
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.adapters.TodoListAdapter;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
+import com.tachyonlabs.practicetodoapp.data.TodoListProvider;
 import com.tachyonlabs.practicetodoapp.databinding.ActivityTodoListBinding;
 import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
@@ -39,8 +40,6 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     private static final int ADD_TASK_REQUEST = 1;
     private static final int EDIT_TASK_REQUEST = 2;
     private static final int ID_TODOLIST_LOADER = 2018;
-    private static final int COMPLETED = 1;
-    private static final int NOT_COMPLETED = 0;
 
     private RecyclerView mRecyclerView;
     private TodoListAdapter mTodoListAdapter;
@@ -88,6 +87,8 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+        } else if (id == R.id.action_delete_test) {
+            deleteAllCheckedTasks();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -107,9 +108,9 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
             contentValues.put(TodoListContract.TodoListEntry.COLUMN_DUE_DATE, todoTask.getDueDate());
 
             if (((CheckBox) view).isChecked()) {
-                isCompleted = COMPLETED;
+                isCompleted = TodoTask.TASK_COMPLETED;
             } else {
-                isCompleted = NOT_COMPLETED;
+                isCompleted = TodoTask.TASK_NOT_COMPLETED;
             }
 
             contentValues.put(TodoListContract.TodoListEntry.COLUMN_COMPLETED, isCompleted);
@@ -153,9 +154,9 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
             Uri todoListQueryUri = TodoListContract.TodoListEntry.CONTENT_URI;
             // sort order preference is the primary sort, with the other sort order as secondary
             if (sortOrderPreference.equals(getString(R.string.priority))) {
-                sortOrder = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE;
+                sortOrder = TodoListProvider.SORT_ORDER_PRIORITY;
             } else {
-                sortOrder = TodoListContract.TodoListEntry.COLUMN_COMPLETED + ", " + TodoListContract.TodoListEntry.COLUMN_DUE_DATE + ", " + TodoListContract.TodoListEntry.COLUMN_PRIORITY;
+                sortOrder = TodoListProvider.SORT_ORDER_DUEDATE;
             }
 
             return new CursorLoader(this,
@@ -201,5 +202,14 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     protected void onDestroy() {
         super.onDestroy();
         mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    private void deleteAllCheckedTasks() {
+        // this is just for testing, later a service will do it periodically
+        Uri uri = TodoListContract.TodoListEntry.CONTENT_URI;
+        int deletedTasksCount = getContentResolver().delete(uri, "completed=?", new String[]{String.valueOf(TodoTask.TASK_COMPLETED)});
+        if (deletedTasksCount > 0) {
+            updateWidget();
+        }
     }
 }

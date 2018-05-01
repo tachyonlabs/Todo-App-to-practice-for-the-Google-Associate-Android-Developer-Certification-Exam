@@ -24,9 +24,6 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
     private int mTaskId = -1;
     private String mAddOrEdit;
 
-    private final static int COMPLETED = 1;
-    private final static int NOT_COMPLETED = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +49,7 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
 
                 dueDate = todoTaskToAddOrEdit.getDueDate();
                 Log.d(TAG, "Due date in millis " + dueDate);
-                if (dueDate == Long.MAX_VALUE) {
+                if (dueDate == TodoTask.NO_DUE_DATE) {
                     mBinding.rbNoDueDate.setChecked(true);
                 } else {
                     mBinding.rbSelectDueDate.setChecked(true);
@@ -62,7 +59,7 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
                 }
 
                 taskCompleted = todoTaskToAddOrEdit.getCompleted();
-                mBinding.cbTaskCompleted.setChecked(taskCompleted == COMPLETED);
+                mBinding.cbTaskCompleted.setChecked(taskCompleted == TodoTask.TASK_COMPLETED);
             }
         } else {
             mAddOrEdit = savedInstanceState.getString(getString(R.string.add_or_edit_key));
@@ -131,7 +128,8 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
         String description = mBinding.etTaskDescription.getText().toString().trim();
         int priority = 0;
         int isCompleted;
-        long dueDate = Long.MAX_VALUE;
+        long dueDate = TodoTask.NO_DUE_DATE;
+        Log.d(TAG, "Here");
 
         if (description.equals("")) {
             Toast.makeText(this, getString(R.string.description_cannot_be_empty), Toast.LENGTH_LONG).show();
@@ -146,14 +144,17 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
             // get the due date, if one has been selected
             if (mBinding.rbSelectDueDate.isChecked()) {
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(mBinding.dpDueDate.getYear(), mBinding.dpDueDate.getMonth(), mBinding.dpDueDate.getDayOfMonth());
+                calendar.set(mBinding.dpDueDate.getYear(), mBinding.dpDueDate.getMonth(), mBinding.dpDueDate.getDayOfMonth(), 0, 0, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
                 dueDate = calendar.getTimeInMillis();
+                Log.d(TAG, "millis = " + dueDate);
+                Log.d(TAG, "millis = " + dueDate);
             }
 
             if (mBinding.cbTaskCompleted.isChecked()) {
-                isCompleted = COMPLETED;
+                isCompleted = TodoTask.TASK_COMPLETED;
             } else {
-                isCompleted = NOT_COMPLETED;
+                isCompleted = TodoTask.TASK_NOT_COMPLETED;
             }
 
             TodoTask todoTask = new TodoTask(description, priority, dueDate, mTaskId, isCompleted);

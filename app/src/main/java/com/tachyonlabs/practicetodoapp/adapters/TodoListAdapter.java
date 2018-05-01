@@ -15,7 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoListAdapterViewHolder> {
     private final static String TAG = TodoListAdapter.class.getSimpleName();
-    private final static int COMPLETED = 1;
     private final TodoListAdapterOnClickHandler mClickHandler;
     private Context mContext;
     private Drawable[] priorityStars;
@@ -91,34 +90,22 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
         String dueDateString;
         long dueDate = mCursor.getLong(mDueDateIndex);
-        if (dueDate == Long.MAX_VALUE) {
+        Log.d(TAG, mCursor.getString(mDescriptionIndex) + " " + dueDate);
+        if (dueDate == TodoTask.NO_DUE_DATE) {
             dueDateString = mContext.getString(R.string.no_due_date);
         } else {
-            dueDateString = DateUtils.formatDateTime(mContext, dueDate,
-                    DateUtils.FORMAT_SHOW_DATE |
-                            DateUtils.FORMAT_ABBREV_MONTH |
-                            DateUtils.FORMAT_SHOW_YEAR |
-                            DateUtils.FORMAT_ABBREV_WEEKDAY |
-                            DateUtils.FORMAT_SHOW_WEEKDAY);
-            // TODO color overdue due dates red
-//            Calendar calendar = Calendar.getInstance();
-//            int year = calendar.get(Calendar.YEAR);
-//            int month = calendar.get(Calendar.MONTH);
-//            int day = calendar.get(Calendar.DATE);
-//            calendar.set(year, month, day);
-//            Log.d(TAG, calendar.getTimeInMillis() + " " + dueDate);
-//            holder.tvTodoDueDate.setTextColor(ContextCompat.getColor(mContext, R.color.colorOverdue));
+            dueDateString = TodoTask.formatDueDate(mContext, dueDate);
         }
+
         int priority = mCursor.getInt(mPriorityIndex);
         holder.tvTodoDueDate.setText(dueDateString);
         holder.tvTodoPriority.setText(mContext.getResources().getStringArray(R.array.priorities)[priority]);
         int isCompleted = mCursor.getInt(mCompletedIndex);
-        holder.cbTodoDescription.setChecked(isCompleted == COMPLETED);
+        holder.cbTodoDescription.setChecked(isCompleted == TodoTask.TASK_COMPLETED);
 
-        if (isCompleted == COMPLETED) {
-            // if the task is completed, we want everything grey, and no touch selector behavior
-            holder.clTodoListItem.setBackground(null);
-            holder.clTodoListItem.setBackgroundColor(mContext.getResources().getColor(R.color.colorCompletedBackground));
+        if (isCompleted == TodoTask.TASK_COMPLETED) {
+            // if the task is completed, we want everything grey
+            holder.clTodoListItem.setBackground(mContext.getResources().getDrawable(R.drawable.list_item_completed_touch_selector));
             holder.cbTodoDescription.setTextColor(mContext.getResources().getColor(R.color.colorCompleted));
             holder.cbTodoDescription.setSupportButtonTintList(completedCheckboxColors);
             holder.tvTodoPriority.setText(mContext.getResources().getString(R.string.completed));
