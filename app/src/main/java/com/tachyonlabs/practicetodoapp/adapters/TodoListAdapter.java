@@ -26,6 +26,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     private final static String TAG = TodoListAdapter.class.getSimpleName();
     private final TodoListAdapterOnClickHandler mClickHandler;
     private Context mContext;
+    private Resources mRes;
     private Drawable[] priorityStars;
     private Drawable completedStar;
     private Cursor mCursor;
@@ -40,10 +41,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     public TodoListAdapter(Context context, TodoListAdapterOnClickHandler todoListAdapterOnClickHandler) {
         mClickHandler = todoListAdapterOnClickHandler;
         mContext = context;
-        Resources res = context.getResources();
+        mRes = context.getResources();
         // not really the place for this, but I had too much trouble trying to read them from @arrays
-        priorityStars = new Drawable[]{res.getDrawable(R.drawable.ic_star_red_24dp), res.getDrawable(R.drawable.ic_star_orange_24dp), res.getDrawable(R.drawable.ic_star_yellow_24dp)};
-        completedStar = res.getDrawable(R.drawable.ic_star_grey_24dp);
+        priorityStars = new Drawable[]{mRes.getDrawable(R.drawable.ic_star_red_24dp), mRes.getDrawable(R.drawable.ic_star_orange_24dp), mRes.getDrawable(R.drawable.ic_star_yellow_24dp)};
+        completedStar = mRes.getDrawable(R.drawable.ic_star_grey_24dp);
 
         completedCheckboxColors = new ColorStateList(
                 new int[][]{
@@ -52,7 +53,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
                 },
                 new int[]{
                         Color.DKGRAY,
-                        mContext.getResources().getColor(R.color.colorCompleted),
+                        mRes.getColor(R.color.colorCompleted),
                 });
 
         unCompletedCheckboxColors = new ColorStateList(
@@ -62,7 +63,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
                 },
                 new int[]{
                         Color.DKGRAY,
-                        mContext.getResources().getColor(R.color.colorAccent),
+                        mRes.getColor(R.color.colorAccent),
                 });
     }
 
@@ -99,22 +100,22 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
 
         int priority = mCursor.getInt(mPriorityIndex);
         holder.tvTodoDueDate.setText(dueDateString);
-        holder.tvTodoPriority.setText(mContext.getResources().getStringArray(R.array.priorities)[priority]);
+        holder.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
         int isCompleted = mCursor.getInt(mCompletedIndex);
         holder.cbTodoDescription.setChecked(isCompleted == TodoTask.TASK_COMPLETED);
 
         if (isCompleted == TodoTask.TASK_COMPLETED) {
             // if the task is completed, we want everything grey
-            holder.clTodoListItem.setBackground(mContext.getResources().getDrawable(R.drawable.list_item_completed_touch_selector));
-            holder.cbTodoDescription.setTextColor(mContext.getResources().getColor(R.color.colorCompleted));
+            holder.clTodoListItem.setBackground(mRes.getDrawable(R.drawable.list_item_completed_touch_selector));
+            holder.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorCompleted));
             holder.cbTodoDescription.setSupportButtonTintList(completedCheckboxColors);
-            holder.tvTodoPriority.setText(mContext.getResources().getString(R.string.completed));
+            holder.tvTodoPriority.setText(mRes.getString(R.string.completed));
             holder.ivTodoPriorityStar.setBackground(completedStar);
         } else {
-            holder.clTodoListItem.setBackground(mContext.getResources().getDrawable(R.drawable.list_item_touch_selector));
-            holder.cbTodoDescription.setTextColor(mContext.getResources().getColor(R.color.colorPrimaryDark));
+            holder.clTodoListItem.setBackground(mRes.getDrawable(R.drawable.list_item_touch_selector));
+            holder.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorPrimaryDark));
             holder.cbTodoDescription.setSupportButtonTintList(unCompletedCheckboxColors);
-            holder.tvTodoPriority.setText(mContext.getResources().getStringArray(R.array.priorities)[priority]);
+            holder.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
             holder.ivTodoPriorityStar.setBackground(priorityStars[priority]);
         }
     }

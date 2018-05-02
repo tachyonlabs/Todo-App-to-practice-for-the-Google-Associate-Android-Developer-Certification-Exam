@@ -64,6 +64,9 @@ Understanding of Android's top-level application components (Activity, Service, 
 * [ ] Schedule a background task using JobScheduler
 * [ ] Execute a background task inside of a Service
 * [x] Implement non-standard task stack navigation (deep links)
+
+**_(Re the following, I've done this in other apps, but haven't come up with a reason to use one in this app yet.)_**
+
 * [ ] Integrate code from an external support library
 
 ### Persistent data storage
@@ -87,7 +90,7 @@ Extending applications to integrate with interfaces outside the core application
 
 * [x] Create an app widget that displays on the device home screen
 * [x] Implement a task to update the app widget periodically
-* [ ] Create and display a notification to the user
+* [x] Create and display a notification to the user
     
 ## Notes
 

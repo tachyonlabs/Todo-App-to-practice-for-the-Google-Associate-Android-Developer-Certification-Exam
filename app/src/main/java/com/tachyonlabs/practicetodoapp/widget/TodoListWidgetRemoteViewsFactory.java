@@ -8,6 +8,7 @@ import com.tachyonlabs.practicetodoapp.models.TodoTask;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
@@ -20,6 +21,7 @@ import android.widget.RemoteViewsService;
 public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private static final String TAG = TodoListWidgetRemoteViewsFactory.class.getSimpleName();
     private Context mContext;
+    private Resources mRes;
     private Cursor mCursor;
     private int mDescriptionIndex;
     private int mPriorityIndex;
@@ -29,6 +31,7 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
     public TodoListWidgetRemoteViewsFactory(Context context, Intent intent) {
         mContext = context;
+        mRes = mContext.getResources();
     }
 
     @Override
@@ -113,15 +116,15 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         Log.d(TAG, priorityContentDescriptions[priority]);
 
         if (isCompleted == TodoTask.TASK_COMPLETED) {
-            rv.setTextColor(R.id.tv_widget_todo_description, mContext.getResources().getColor(R.color.colorCompleted));
+            rv.setTextColor(R.id.tv_widget_todo_description, mRes.getColor(R.color.colorCompleted));
             rv.setInt(R.id.iv_widget_todo_priority_star, "setBackgroundResource", completedStar);
             rv.setTextViewText(R.id.tv_widget_todo_due_date, mContext.getString(R.string.completed));
-            rv.setInt(R.id.ll_widget_todo_item_layout, "setBackgroundColor", mContext.getResources().getColor(R.color.colorCompletedBackground));
+            rv.setInt(R.id.ll_widget_todo_item_layout, "setBackgroundColor", mRes.getColor(R.color.colorCompletedBackground));
         } else {
-            rv.setTextColor(R.id.tv_widget_todo_description, mContext.getResources().getColor(R.color.colorPrimaryDark));
+            rv.setTextColor(R.id.tv_widget_todo_description, mRes.getColor(R.color.colorPrimaryDark));
             rv.setInt(R.id.iv_widget_todo_priority_star, "setBackgroundResource", priorityStars[priority]);
             rv.setTextViewText(R.id.tv_widget_todo_due_date, dueDateString);
-            rv.setInt(R.id.ll_widget_todo_item_layout, "setBackgroundColor", mContext.getResources().getColor(R.color.colorUncompletedBackground));
+            rv.setInt(R.id.ll_widget_todo_item_layout, "setBackgroundColor", mRes.getColor(R.color.colorUncompletedBackground));
         }
 
         TodoTask todoTask = new TodoTask(mCursor.getString(mDescriptionIndex),

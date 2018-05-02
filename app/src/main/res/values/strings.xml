@@ -3,6 +3,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_delete_test">Deletion test</string>
+    <string name="action_test_something">Test something else</string>
     <string name="no_due_date">No due date</string>
     <string name="none">None</string>
     <string name="select_date">Select date</string>
@@ -44,4 +45,9 @@
     <string name="task_done">Task Done</string>
     <string name="cancel">Cancel</string>
     <string name="completion">Completion</string>
+
+    <!-- for Notifications -->
+    <string name="main_notification_channel_name">Primary</string>
+    <string name="tasks_due_today">You have %d tasks due today</string>
+
 </resources>

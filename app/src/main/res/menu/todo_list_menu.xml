@@ -13,4 +13,10 @@
             android:orderInCategory="200"
             android:title="@string/action_delete_test"
             app:showAsAction="never" />
+
+    <item
+            android:id="@+id/action_test_something"
+            android:orderInCategory="300"
+            android:title="@string/action_test_something"
+            app:showAsAction="never" />
 </menu>

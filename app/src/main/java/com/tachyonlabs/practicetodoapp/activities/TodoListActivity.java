@@ -6,6 +6,7 @@ import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.data.TodoListProvider;
 import com.tachyonlabs.practicetodoapp.databinding.ActivityTodoListBinding;
 import com.tachyonlabs.practicetodoapp.models.TodoTask;
+import com.tachyonlabs.practicetodoapp.utils.NotificationUtils;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -85,10 +86,17 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-        } else if (id == R.id.action_delete_test) {
-            deleteAllCheckedTasks();
+        switch (id) {
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+            case R.id.action_delete_test:
+                // later a service will take care of this
+                deleteAllCheckedTasks();
+                break;
+            case R.id.action_test_something:
+                // just a place for me to test whatever I'm testing at the moment
+                NotificationUtils.notifyUserOfDueAndOverdueTasks(this);
         }
         return super.onOptionsItemSelected(item);
     }
