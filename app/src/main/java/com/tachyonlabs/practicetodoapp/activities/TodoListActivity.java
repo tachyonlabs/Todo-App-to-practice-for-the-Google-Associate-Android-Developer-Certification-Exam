@@ -2,6 +2,7 @@ package com.tachyonlabs.practicetodoapp.activities;
 
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.adapters.TodoListAdapter;
+import com.tachyonlabs.practicetodoapp.broadcast_receivers.DailyAlarmReceiver;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.data.TodoListProvider;
 import com.tachyonlabs.practicetodoapp.databinding.ActivityTodoListBinding;
@@ -9,8 +10,11 @@ import com.tachyonlabs.practicetodoapp.models.TodoTask;
 import com.tachyonlabs.practicetodoapp.utils.NotificationUtils;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -74,6 +78,9 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
         mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         getSupportLoaderManager().initLoader(ID_TODOLIST_LOADER, null, this);
+
+        //scheduleDailyDueCheckerAlarm();
+        cancelAlarm();
     }
 
     @Override
@@ -219,5 +226,29 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
         if (deletedTasksCount > 0) {
             updateWidget();
         }
+    }
+
+    public void scheduleDailyDueCheckerAlarm() {
+        Intent intent = new Intent(getApplicationContext(), DailyAlarmReceiver.class);
+
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
+                DailyAlarmReceiver.REQUEST_CODE,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+    }
+
+    public void cancelAlarm() {
+        Intent intent = new Intent(getApplicationContext(), DailyAlarmReceiver.class);
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, DailyAlarmReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.cancel(pIntent);
     }
 }

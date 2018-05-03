@@ -55,6 +55,15 @@
                 android:permission="android.permission.BIND_REMOTEVIEWS">
         </service>
 
+        <receiver
+                android:name=".broadcast_receivers.DailyAlarmReceiver"
+                android:process=":remote">
+        </receiver>
+
+        <service
+                android:name=".services.DueCheckIntentService"
+                android:exported="false"/>
+
     </application>
 
 </manifest>

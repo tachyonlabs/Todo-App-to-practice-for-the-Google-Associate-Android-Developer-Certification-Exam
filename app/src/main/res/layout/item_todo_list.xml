@@ -45,7 +45,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"/>
 
-    <ImageView
+    <com.tachyonlabs.practicetodoapp.custom_views.PriorityStarImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:id="@+id/iv_todo_priority_star"

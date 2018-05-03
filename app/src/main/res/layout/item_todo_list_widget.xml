@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <!--I can't use my custom PriorityStarImageView here because app widgets don't support custom views-->
     <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"

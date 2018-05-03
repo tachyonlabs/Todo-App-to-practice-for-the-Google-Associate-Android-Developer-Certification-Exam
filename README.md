@@ -42,7 +42,7 @@ Implementation of the visual and navigational components of an application's des
 * [ ] Mock up the main screens and navigation flow of the application
 * [ ] Describe interactions between UI, background task, and data persistence
 * [x] Construct a layout using XML or Java code
-* [ ] Create a custom view class and add it to a layout
+* [x] Create a custom view class and add it to a layout
 * [x] Implement a custom application theme
 * [x] Apply a custom style to a group of common widgets
 * [x] Define a RecyclerView item list

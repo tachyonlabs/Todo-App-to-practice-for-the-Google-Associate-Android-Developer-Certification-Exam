@@ -1,6 +1,7 @@
 package com.tachyonlabs.practicetodoapp.adapters;
 
 import com.tachyonlabs.practicetodoapp.R;
+import com.tachyonlabs.practicetodoapp.custom_views.PriorityStarImageView;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.models.TodoTask;
 
@@ -10,7 +11,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoListAdapterViewHolder> {
@@ -27,8 +26,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     private final TodoListAdapterOnClickHandler mClickHandler;
     private Context mContext;
     private Resources mRes;
-    private Drawable[] priorityStars;
-    private Drawable completedStar;
     private Cursor mCursor;
     private int mDescriptionIndex;
     private int mPriorityIndex;
@@ -42,9 +39,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         mClickHandler = todoListAdapterOnClickHandler;
         mContext = context;
         mRes = context.getResources();
-        // not really the place for this, but I had too much trouble trying to read them from @arrays
-        priorityStars = new Drawable[]{mRes.getDrawable(R.drawable.ic_star_red_24dp), mRes.getDrawable(R.drawable.ic_star_orange_24dp), mRes.getDrawable(R.drawable.ic_star_yellow_24dp)};
-        completedStar = mRes.getDrawable(R.drawable.ic_star_grey_24dp);
 
         completedCheckboxColors = new ColorStateList(
                 new int[][]{
@@ -110,14 +104,14 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
             holder.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorCompleted));
             holder.cbTodoDescription.setSupportButtonTintList(completedCheckboxColors);
             holder.tvTodoPriority.setText(mRes.getString(R.string.completed));
-            holder.ivTodoPriorityStar.setBackground(completedStar);
+            priority = PriorityStarImageView.COMPLETED;
         } else {
             holder.clTodoListItem.setBackground(mRes.getDrawable(R.drawable.list_item_touch_selector));
             holder.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorPrimaryDark));
             holder.cbTodoDescription.setSupportButtonTintList(unCompletedCheckboxColors);
             holder.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
-            holder.ivTodoPriorityStar.setBackground(priorityStars[priority]);
         }
+        holder.ivTodoPriorityStar.setPriority(priority);
     }
 
     @Override
@@ -149,7 +143,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         final AppCompatCheckBox cbTodoDescription;
         final TextView tvTodoDueDate;
         final TextView tvTodoPriority;
-        final ImageView ivTodoPriorityStar;
+        final PriorityStarImageView ivTodoPriorityStar;
         final ConstraintLayout clTodoListItem;
 
         public TodoListAdapterViewHolder(View itemView) {
