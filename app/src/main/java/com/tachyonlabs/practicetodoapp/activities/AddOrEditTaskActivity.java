@@ -148,7 +148,6 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
                 calendar.set(Calendar.MILLISECOND, 0);
                 dueDate = calendar.getTimeInMillis();
                 Log.d(TAG, "millis = " + dueDate);
-                Log.d(TAG, "millis = " + dueDate);
             }
 
             if (mBinding.cbTaskCompleted.isChecked()) {

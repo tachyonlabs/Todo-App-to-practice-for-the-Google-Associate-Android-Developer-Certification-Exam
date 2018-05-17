@@ -50,7 +50,7 @@ Implementation of the visual and navigational components of an application's des
 * [x] Implement menu-based or drawer navigation
 * [x] Localize the application's UI text into one other language
 * [x] Apply content descriptions to views for accessibility
-* [ ] Add accessibility hooks to a custom view
+* [x] Add accessibility hooks to a custom view
 
 ### Fundamental application components
 

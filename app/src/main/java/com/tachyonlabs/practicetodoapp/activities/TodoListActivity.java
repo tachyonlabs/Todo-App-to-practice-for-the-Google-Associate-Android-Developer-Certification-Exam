@@ -80,7 +80,7 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
         getSupportLoaderManager().initLoader(ID_TODOLIST_LOADER, null, this);
 
         //scheduleDailyDueCheckerAlarm();
-        cancelAlarm();
+        //cancelAlarm();
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.data.TodoListProvider;
 import com.tachyonlabs.practicetodoapp.models.TodoTask;
+import com.tachyonlabs.practicetodoapp.utils.TodoDateUtils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -100,7 +101,7 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
         if (dueDate == TodoTask.NO_DUE_DATE) {
             dueDateString = mContext.getString(R.string.no_due_date);
         } else {
-            dueDateString = TodoTask.formatDueDate(mContext, dueDate);
+            dueDateString = TodoDateUtils.formatDueDate(mContext, dueDate);
         }
         int[] priorityStars = {R.drawable.ic_star_red_24dp, R.drawable.ic_star_orange_24dp, R.drawable.ic_star_yellow_24dp};
         int completedStar = R.drawable.ic_star_grey_24dp;
@@ -125,6 +126,13 @@ public class TodoListWidgetRemoteViewsFactory implements RemoteViewsService.Remo
             rv.setInt(R.id.iv_widget_todo_priority_star, "setBackgroundResource", priorityStars[priority]);
             rv.setTextViewText(R.id.tv_widget_todo_due_date, dueDateString);
             rv.setInt(R.id.ll_widget_todo_item_layout, "setBackgroundColor", mRes.getColor(R.color.colorUncompletedBackground));
+            if (dueDate < TodoDateUtils.getTodaysDateInMillis()) {
+                // display overdue tasks with the date in red
+                // yeah, I know red for both overdue and high priority may be not the best idea
+                rv.setTextColor(R.id.tv_widget_todo_due_date, mRes.getColor(R.color.colorOverdue));
+            } else {
+                rv.setTextColor(R.id.tv_widget_todo_due_date, mRes.getColor(R.color.colorNormalWidgetText));
+            }
         }
 
         TodoTask todoTask = new TodoTask(mCursor.getString(mDescriptionIndex),

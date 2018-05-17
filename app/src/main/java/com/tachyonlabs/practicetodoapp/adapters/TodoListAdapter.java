@@ -4,6 +4,7 @@ import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.custom_views.PriorityStarImageView;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
 import com.tachyonlabs.practicetodoapp.models.TodoTask;
+import com.tachyonlabs.practicetodoapp.utils.TodoDateUtils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -80,8 +81,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         mCursor.moveToPosition(position);
 
         holder.cbTodoDescription.setText(mCursor.getString(mDescriptionIndex));
-//        // ditto for not propagating a red/overdue date
-//        holder.tvTodoDueDate.setTextColor(holder.tvTodoPriority.getCurrentTextColor());
+        holder.tvTodoDueDate.setTextColor(holder.tvTodoPriority.getCurrentTextColor());
 
         String dueDateString;
         long dueDate = mCursor.getLong(mDueDateIndex);
@@ -89,7 +89,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
         if (dueDate == TodoTask.NO_DUE_DATE) {
             dueDateString = mContext.getString(R.string.no_due_date);
         } else {
-            dueDateString = TodoTask.formatDueDate(mContext, dueDate);
+            dueDateString = TodoDateUtils.formatDueDate(mContext, dueDate);
         }
 
         int priority = mCursor.getInt(mPriorityIndex);
@@ -110,6 +110,14 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
             holder.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorPrimaryDark));
             holder.cbTodoDescription.setSupportButtonTintList(unCompletedCheckboxColors);
             holder.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
+            if (dueDate < TodoDateUtils.getTodaysDateInMillis()) {
+                // display overdue tasks with the date in red
+                // yeah, I know red for both overdue and high priority may be not the best idea
+                holder.tvTodoDueDate.setTextColor(mRes.getColor(R.color.colorOverdue));
+            } else {
+                holder.tvTodoDueDate.setTextColor(holder.tvTodoPriority.getCurrentTextColor());
+                Log.d(TAG, "color is " + (holder.tvTodoPriority.getCurrentTextColor()));
+            }
         }
         holder.ivTodoPriorityStar.setPriority(priority);
     }

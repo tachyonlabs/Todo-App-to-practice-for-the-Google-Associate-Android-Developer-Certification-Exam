@@ -22,4 +22,8 @@
     <string name="complete_or_edit_task">¿Completar o Editar Tarea?</string>
     <string name="task_done">Tarea Hecha</string>
     <string name="cancel">Cancelar</string>
+
+    <!--for Notifications-->
+    <string name="due_and_overdue_tasks">Debidas tareas y tareas atrasadas</string>
+
 </resources>

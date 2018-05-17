@@ -46,8 +46,17 @@
     <string name="cancel">Cancel</string>
     <string name="completion">Completion</string>
 
-    <!-- for Notifications -->
-    <string name="main_notification_channel_name">Primary</string>
-    <string name="tasks_due_today">You have %d tasks due today</string>
+    <!--for Notifications-->
+    <string name="main_notification_channel_name" translatable="false">Primary</string>
+    <string name="due_and_overdue_tasks">Due and overdue tasks</string>
+    <string name="you_have_tasks_due_today">You have %d tasks due today.</string>
+    <string name="you_have_overdue_tasks">You have %d overdue tasks.</string>
+    <string name="you_have_tasks_due_today_and_overdue_tasks">You have %d tasks due today, and %d overdue tasks.</string>
+
+    <!--Additional accessibility contentDescriptions (some just use existing strings above)-->
+    <string name="high_priority_task_red_star">Red star for high priority task</string>
+    <string name="medium_priority_task_orange_star">Orange star for medium priority task</string>
+    <string name="low_priority_task_yellow_star">Yellow star for low priority task</string>
+    <string name="completed_task_grey_star">Grey star for completed task</string>
 
 </resources>

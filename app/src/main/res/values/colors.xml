@@ -8,4 +8,5 @@
     <color name="colorCompleted">#9E9E9E</color>
     <color name="colorCompletedBackground">#EEEEEE</color>
     <color name="colorUncompletedBackground">#FFFFFF</color>
+    <color name="colorNormalWidgetText">#757575</color>
 </resources>
