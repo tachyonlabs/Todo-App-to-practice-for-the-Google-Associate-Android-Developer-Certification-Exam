@@ -1,8 +1,25 @@
 # An in-process practice Todo app to help me prepare for Google's Associate Android Developer Certification exam
 
 ## About the app/project
-
-**_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by implementing all the tasks listed on the "Exam Content" tab of [https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/). (If you continue to scroll down through this README, you'll see a checklist of all those tasks, which I'm checking off one by one as I implement them in the app.)
+---
+**Note**: Right now (May 30, 2018), if you try to sign up for the exam you get the message "The Associate Android 
+Developer certification is closed for updates!", with the option to enter your email address to be notified "when the 
+Associate Android Developer certification becomes available". In Android sessions at Google I/O earlier this month, 
+we were very much urged to use Android Architecture Components, such as Room, instead of some former best practices 
+recommendations such as Content Providers, and all the code sample and live demo screenshots were using Kotlin rather 
+than Java, so, having seen the writing on the (gigantic projector screen) wall, I asked an Android person at the Google 
+Certifications info table if he knew how soon the exam would be changing to reflect these and other updates. The 
+impression I got from him was that it would probably not be for a couple months yet, so I wasn't quite expecting this 
+to happen just yet. On one hand, yes, it's time to learn Architecture Components and Kotlin! But on the other hand, I 
+would certainly have preferred to have taken and passed the exam already, and *then* learned Architecture Components 
+and Kotlin. :-) We will see ... the Exam Contents tasks I've been checking off below may be about to change *a lot*.
+---
+Anyway, **_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way 
+for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by 
+implementing all the tasks listed on the "Exam Content" tab of 
+[https://developers.google.com/training/certification/associate-android-developer/](https://developers.google.com/training/certification/associate-android-developer/). 
+(If you continue to scroll down through this README, you'll see a checklist of all those tasks, which I'm checking off 
+one by one as I implement them in the app.)
 
 It's also kind of a way of coming full circle for me -- I had done a [prework Todo app as part of my application for the CodePath Android for Engineers bootcamp](https://github.com/tachyonlabs/CodePath-Android-Bootcamp-Prework), so doing another Todo app as a way to use/practice all the skills that will be tested in the exam seems very appealing to me. 
 

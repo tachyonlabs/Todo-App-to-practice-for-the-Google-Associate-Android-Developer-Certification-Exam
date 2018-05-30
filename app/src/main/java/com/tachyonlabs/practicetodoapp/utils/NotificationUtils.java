@@ -65,7 +65,7 @@ public class NotificationUtils {
     public static void notifyUserOfDueAndOverdueTasks(Context context) {
         int due = countDueOrOverdueTasks(context, DUE_TODAY);
         int overdue = countDueOrOverdueTasks(context, OVERDUE);
-        String contentText = null;
+        String contentText = context.getString(R.string.you_have);
 
         // No due or overdue, no due or overdue notification needed
         if (due + overdue == 0) {
@@ -73,11 +73,14 @@ public class NotificationUtils {
         }
 
         if (due == 0) {
-            contentText = String.format(context.getString(R.string.you_have_overdue_tasks), overdue);
+            contentText += context.getResources().getQuantityString(R.plurals.overdueTasks, overdue, overdue);
         } else if (overdue == 0) {
-            contentText = String.format(context.getString(R.string.you_have_tasks_due_today), due);
+            contentText += context.getResources().getQuantityString(R.plurals.dueTasks, due, due) +
+                    context.getString(R.string.due_today) + ".";
         } else {
-            contentText = String.format(context.getString(R.string.you_have_tasks_due_today_and_overdue_tasks), due, overdue);
+            contentText += context.getResources().getQuantityString(R.plurals.dueTasks, due, due) +
+                    context.getString(R.string.due_today) + context.getString(R.string.and) +
+                    context.getResources().getQuantityString(R.plurals.overdueTasks, overdue, overdue);
         }
 
         NotificationManager notificationManager = (NotificationManager)

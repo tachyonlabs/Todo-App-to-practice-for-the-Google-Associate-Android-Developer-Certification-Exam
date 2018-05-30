@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="dueTasks">
+        <item quantity="one">%d task</item>
+        <item quantity="other">%d tasks</item>
+    </plurals>
+
+    <plurals name="overdueTasks">
+        <item quantity="one">%d overdue task.</item>
+        <item quantity="other">%d overdue tasks.</item>
+    </plurals>
+
+</resources>

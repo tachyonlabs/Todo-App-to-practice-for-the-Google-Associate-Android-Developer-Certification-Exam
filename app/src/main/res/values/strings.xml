@@ -49,9 +49,9 @@
     <!--for Notifications-->
     <string name="main_notification_channel_name" translatable="false">Primary</string>
     <string name="due_and_overdue_tasks">Due and overdue tasks</string>
-    <string name="you_have_tasks_due_today">You have %d tasks due today.</string>
-    <string name="you_have_overdue_tasks">You have %d overdue tasks.</string>
-    <string name="you_have_tasks_due_today_and_overdue_tasks">You have %d tasks due today, and %d overdue tasks.</string>
+    <string name="you_have">You have\u0020</string>
+    <string name="due_today">\u0020due today</string>
+    <string name="and">, and\u0020</string>
 
     <!--Additional accessibility contentDescriptions (some just use existing strings above)-->
     <string name="high_priority_task_red_star">Red star for high priority task</string>
