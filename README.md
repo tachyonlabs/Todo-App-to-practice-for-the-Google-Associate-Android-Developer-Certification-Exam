@@ -1,15 +1,16 @@
 # An in-process practice Todo app to help me prepare for Google's Associate Android Developer Certification exam
 
 ## About the app/project
+
 ---
-**Note**: Right now (May 30, 2018), if you try to sign up for the exam you get the message "The Associate Android 
+**_Note:_** Right now (May 30, 2018), if you try to sign up for the exam you get the message "The Associate Android 
 Developer certification is closed for updates!", with the option to enter your email address to be notified "when the 
 Associate Android Developer certification becomes available". In Android sessions at Google I/O earlier this month, 
 we were very much urged to use Android Architecture Components, such as Room, instead of some former best practices 
 recommendations such as Content Providers, and all the code sample and live demo screenshots were using Kotlin rather 
 than Java, so, having seen the writing on the (gigantic projector screen) wall, I asked an Android person at the Google 
 Certifications info table if he knew how soon the exam would be changing to reflect these and other updates. The 
-impression I got from him was that it would probably not be for a couple months yet, so I wasn't quite expecting this 
+impression I got from him was that it would probably not be for a couple months, so I wasn't quite expecting this 
 to happen just yet. On one hand, yes, it's time to learn Architecture Components and Kotlin! But on the other hand, I 
 would certainly have preferred to have taken and passed the exam already, and *then* learned Architecture Components 
 and Kotlin. :-) We will see ... the Exam Contents tasks I've been checking off below may be about to change *a lot*.
