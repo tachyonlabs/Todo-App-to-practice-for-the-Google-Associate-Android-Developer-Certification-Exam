@@ -2,7 +2,6 @@
 
 ## About the app/project
 
----
 **_Note:_** Right now (May 30, 2018), if you try to sign up for the exam you get the message "The Associate Android 
 Developer certification is closed for updates!", with the option to enter your email address to be notified "when the 
 Associate Android Developer certification becomes available". In Android sessions at Google I/O earlier this month, 
@@ -14,7 +13,7 @@ impression I got from him was that it would probably not be for a couple months,
 to happen just yet. On one hand, yes, it's time to learn Architecture Components and Kotlin! But on the other hand, I 
 would certainly have preferred to have taken and passed the exam already, and *then* learned Architecture Components 
 and Kotlin. :-) We will see ... the Exam Contents tasks I've been checking off below may be about to change *a lot*.
----
+
 Anyway, **_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way 
 for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by 
 implementing all the tasks listed on the "Exam Content" tab of 
