@@ -91,13 +91,13 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
 
     private void selectPriorityRadioButton(int priority) {
         switch (priority) {
-            case 0:
+            case TodoTask.HIGH_PRIORITY:
                 mBinding.rbHighPriority.setChecked(true);
                 break;
-            case 1:
+            case TodoTask.MEDIUM_PRIORITY:
                 mBinding.rbMediumPriority.setChecked(true);
                 break;
-            case 2:
+            case TodoTask.LOW_PRIORITY:
                 mBinding.rbLowPriority.setChecked(true);
         }
     }
@@ -106,11 +106,11 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         // save values on device rotation
         outState.putString(getString(R.string.task_description_key), mBinding.etTaskDescription.getText().toString());
-        int priority = 0;
+        int priority = TodoTask.HIGH_PRIORITY;
         if (mBinding.rbMediumPriority.isChecked()) {
-            priority = 1;
+            priority = TodoTask.MEDIUM_PRIORITY;
         } else if (mBinding.rbLowPriority.isChecked()) {
-            priority = 2;
+            priority = TodoTask.LOW_PRIORITY;
         }
 
         outState.putInt(getString(R.string.priority_key), priority);
@@ -126,8 +126,8 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
 
     public void addOrUpdateTask(View view) {
         String description = mBinding.etTaskDescription.getText().toString().trim();
-        int priority = 0;
-        int isCompleted;
+        int priority = TodoTask.HIGH_PRIORITY;
+        int isCompleted = TodoTask.TASK_NOT_COMPLETED;
         long dueDate = TodoTask.NO_DUE_DATE;
         Log.d(TAG, "Here");
 
@@ -136,9 +136,9 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
         } else {
             // get the priority setting
             if (mBinding.rbMediumPriority.isChecked()) {
-                priority = 1;
+                priority = TodoTask.MEDIUM_PRIORITY;
             } else if (mBinding.rbLowPriority.isChecked()) {
-                priority = 2;
+                priority = TodoTask.LOW_PRIORITY;
             }
 
             // get the due date, if one has been selected
@@ -175,6 +175,8 @@ public class AddOrEditTaskActivity extends AppCompatActivity {
         contentValues.put(TodoListContract.TodoListEntry.COLUMN_PRIORITY, todoTask.getPriority());
         contentValues.put(TodoListContract.TodoListEntry.COLUMN_DUE_DATE, todoTask.getDueDate());
         contentValues.put(TodoListContract.TodoListEntry.COLUMN_COMPLETED, todoTask.getCompleted());
+
+        Log.d(TAG, todoTask.getDueDate() + "");
 
         if (mAddOrEdit.equals(getString(R.string.add_new_task))) {
             getContentResolver().insert(TodoListContract.TodoListEntry.CONTENT_URI, contentValues);

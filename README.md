@@ -7,12 +7,12 @@ Developer certification is closed for updates!", with the option to enter your e
 Associate Android Developer certification becomes available". In Android sessions at Google I/O earlier this month, 
 we were very much urged to use Android Architecture Components, such as Room, instead of some former best practices 
 recommendations such as Content Providers, and all the code sample and live demo screenshots were using Kotlin rather 
-than Java, so, having seen the writing on the (gigantic projector screen) wall, I asked an Android person at the Google 
-Certifications info table if he knew how soon the exam would be changing to reflect these and other updates. The 
+than Java, so, having seen the writing on the (gigantic projector screen) wall, I had asked an Android person at the 
+Google Certifications info table if he knew how soon the exam would be changing to reflect these and other updates. The 
 impression I got from him was that it would probably not be for a couple months, so I wasn't quite expecting this 
 to happen just yet. On one hand, yes, it's time to learn Architecture Components and Kotlin! But on the other hand, I 
 would certainly have preferred to have taken and passed the exam already, and *then* learned Architecture Components 
-and Kotlin. :-) We will see ... the Exam Contents tasks I've been checking off below may be about to change *a lot*.
+and Kotlin. :-) We will see ... the Exam Content tasks I've been checking off below may be about to change *a lot*.
 
 Anyway, **_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way 
 for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by 
@@ -41,7 +41,7 @@ Again, the sections and individual tasks below are all from the "Exam Content" t
 
 Writing tests to verify that the application's logic and user interface are performing as expected, and executing those tests using the developer tools. Candidates should be able to analyze application crashes, and find common bugs such as layout errors and memory leaks. This includes working with the debuggers to step through application code and verify expected behavior.
 
-* [ ] Write and execute a local JVM unit test
+* [x] Write and execute a local JVM unit test
 * [ ] Write and execute a device UI test
 * [x] Use the system log to output debug information
 

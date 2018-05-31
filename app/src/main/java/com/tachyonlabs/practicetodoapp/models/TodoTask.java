@@ -4,9 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TodoTask implements Parcelable {
+    public final static int HIGH_PRIORITY = 0;
+    public final static int MEDIUM_PRIORITY = 1;
+    public final static int LOW_PRIORITY = 2;
     public final static int TASK_COMPLETED = 1;
     public final static int TASK_NOT_COMPLETED = 0;
     public final static long NO_DUE_DATE = Long.MAX_VALUE;
+
     public static final Parcelable.Creator<TodoTask> CREATOR
             = new Parcelable.Creator<TodoTask>() {
         @Override
@@ -24,6 +28,14 @@ public class TodoTask implements Parcelable {
     private long dueDate;
     private int id;
     private int completed;
+
+    public TodoTask() {
+        this.description = null;
+        this.priority = 0;
+        this.dueDate = 0L;
+        this.id = 0;
+        this.completed = 0;
+    }
 
     public TodoTask(String description, int priority, long dueDate, int id, int completed) {
         this.description = description;
