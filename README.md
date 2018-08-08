@@ -1,18 +1,16 @@
 # An in-process practice Todo app to help me prepare for Google's Associate Android Developer Certification exam
 
+## A very happy ending/beginning
+
+I'm thrilled to announce that I just (August 8, 2018) received my Google Associate Android Developer certificate: [https://www.credential.net/c2h121dl?key=cbb1e3a79763d330559fd1e92e98e3192a1d8fae4317e54cb5344835c9a42377](https://www.credential.net/c2h121dl?key=cbb1e3a79763d330559fd1e92e98e3192a1d8fae4317e54cb5344835c9a42377
+
 ## About the app/project
 
-**_Note:_** Right now (May 30, 2018), if you try to sign up for the exam you get the message "The Associate Android 
-Developer certification is closed for updates!", with the option to enter your email address to be notified "when the 
-Associate Android Developer certification becomes available". In Android sessions at Google I/O earlier this month, 
-we were very much urged to use Android Architecture Components, such as Room, instead of some former best practices 
-recommendations such as Content Providers, and all the code sample and live demo screenshots were using Kotlin rather 
-than Java, so, having seen the writing on the (gigantic projector screen) wall, I had asked an Android person at the 
-Google Certifications info table if he knew how soon the exam would be changing to reflect these and other updates. The 
-impression I got from him was that it would probably not be for a couple months, so I wasn't quite expecting this 
-to happen just yet. On one hand, yes, it's time to learn Architecture Components and Kotlin! But on the other hand, I 
-would certainly have preferred to have taken and passed the exam already, and *then* learned Architecture Components 
-and Kotlin. :-) We will see ... the Exam Content tasks I've been checking off below may be about to change *a lot*.
+**_Note:_** This app and the "Exam Content" tasks described below were all for the original 2016 version of Google's 
+Associate Android Developer certification exam, but now (August 2018) Google has just released an updated version 
+of the exam featuring Architecture Components. So you should no longer use this app and the list of tasks in this 
+README as part of your practice for taking the exam -- instead, see the "Exam Content" topics for the updated exam
+at [https://developers.google.com/training/certification/associate-android-developer/#exam-content](https://developers.google.com/training/certification/associate-android-developer/#exam-content)
 
 Anyway, **_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way 
 for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by 
