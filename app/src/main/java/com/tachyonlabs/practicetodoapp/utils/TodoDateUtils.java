@@ -23,12 +23,11 @@ public class TodoDateUtils {
     }
 
     public static String formatDueDate(Context context, long dueDateInMillis) {
-        String formattedDueDateString = android.text.format.DateUtils.formatDateTime(context, dueDateInMillis,
+        return android.text.format.DateUtils.formatDateTime(context, dueDateInMillis,
                 android.text.format.DateUtils.FORMAT_SHOW_DATE |
                         android.text.format.DateUtils.FORMAT_ABBREV_MONTH |
                         android.text.format.DateUtils.FORMAT_SHOW_YEAR |
                         android.text.format.DateUtils.FORMAT_ABBREV_WEEKDAY |
                         android.text.format.DateUtils.FORMAT_SHOW_WEEKDAY);
-        return formattedDueDateString;
     }
 }

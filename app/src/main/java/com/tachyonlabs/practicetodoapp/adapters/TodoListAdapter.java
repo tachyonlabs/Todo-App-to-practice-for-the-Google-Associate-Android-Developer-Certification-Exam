@@ -3,6 +3,7 @@ package com.tachyonlabs.practicetodoapp.adapters;
 import com.tachyonlabs.practicetodoapp.R;
 import com.tachyonlabs.practicetodoapp.custom_views.PriorityStarImageView;
 import com.tachyonlabs.practicetodoapp.data.TodoListContract;
+import com.tachyonlabs.practicetodoapp.databinding.ItemTodoListBinding;
 import com.tachyonlabs.practicetodoapp.models.TodoTask;
 import com.tachyonlabs.practicetodoapp.utils.TodoDateUtils;
 
@@ -11,6 +12,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -65,12 +67,12 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     @Override
     public TodoListAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.item_todo_list;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        TodoListAdapterViewHolder viewHolder = new TodoListAdapterViewHolder(view);
+        ItemTodoListBinding binding = ItemTodoListBinding.inflate(inflater,viewGroup,shouldAttachToParentImmediately);
+
+        TodoListAdapterViewHolder viewHolder = new TodoListAdapterViewHolder(binding);
 
         return viewHolder;
     }
@@ -79,47 +81,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     @Override
     public void onBindViewHolder(@NonNull TodoListAdapter.TodoListAdapterViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-
-        holder.cbTodoDescription.setText(mCursor.getString(mDescriptionIndex));
-        holder.tvTodoDueDate.setTextColor(holder.tvTodoPriority.getCurrentTextColor());
-
-        String dueDateString;
-        long dueDate = mCursor.getLong(mDueDateIndex);
-        Log.d(TAG, mCursor.getString(mDescriptionIndex) + " " + dueDate);
-        if (dueDate == TodoTask.NO_DUE_DATE) {
-            dueDateString = mContext.getString(R.string.no_due_date);
-        } else {
-            dueDateString = TodoDateUtils.formatDueDate(mContext, dueDate);
-        }
-
-        int priority = mCursor.getInt(mPriorityIndex);
-        holder.tvTodoDueDate.setText(dueDateString);
-        holder.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
-        int isCompleted = mCursor.getInt(mCompletedIndex);
-        holder.cbTodoDescription.setChecked(isCompleted == TodoTask.TASK_COMPLETED);
-
-        if (isCompleted == TodoTask.TASK_COMPLETED) {
-            // if the task is completed, we want everything grey
-            holder.clTodoListItem.setBackground(mRes.getDrawable(R.drawable.list_item_completed_touch_selector));
-            holder.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorCompleted));
-            holder.cbTodoDescription.setSupportButtonTintList(completedCheckboxColors);
-            holder.tvTodoPriority.setText(mRes.getString(R.string.completed));
-            priority = PriorityStarImageView.COMPLETED;
-        } else {
-            holder.clTodoListItem.setBackground(mRes.getDrawable(R.drawable.list_item_touch_selector));
-            holder.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorPrimaryDark));
-            holder.cbTodoDescription.setSupportButtonTintList(unCompletedCheckboxColors);
-            holder.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
-            if (dueDate < TodoDateUtils.getTodaysDateInMillis()) {
-                // display overdue tasks with the date in red
-                // yeah, I know red for both overdue and high priority may be not the best idea
-                holder.tvTodoDueDate.setTextColor(mRes.getColor(R.color.colorOverdue));
-            } else {
-                holder.tvTodoDueDate.setTextColor(holder.tvTodoPriority.getCurrentTextColor());
-                Log.d(TAG, "color is " + (holder.tvTodoPriority.getCurrentTextColor()));
-            }
-        }
-        holder.ivTodoPriorityStar.setPriority(priority);
+        holder.bind(mCursor);
     }
 
     @Override
@@ -148,21 +110,17 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
     }
 
     public class TodoListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final AppCompatCheckBox cbTodoDescription;
-        final TextView tvTodoDueDate;
-        final TextView tvTodoPriority;
-        final PriorityStarImageView ivTodoPriorityStar;
-        final ConstraintLayout clTodoListItem;
 
-        public TodoListAdapterViewHolder(View itemView) {
-            super(itemView);
-            cbTodoDescription = itemView.findViewById(R.id.cb_todo_description);
-            tvTodoDueDate = itemView.findViewById(R.id.tv_todo_due_date);
-            tvTodoPriority = itemView.findViewById(R.id.tv_todo_priority);
-            ivTodoPriorityStar = itemView.findViewById(R.id.iv_todo_priority_star);
+        final ConstraintLayout clTodoListItem;
+        ItemTodoListBinding binding;
+
+        public TodoListAdapterViewHolder(ItemTodoListBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
             clTodoListItem = (ConstraintLayout) itemView;
             itemView.setOnClickListener(this);
-            cbTodoDescription.setOnClickListener(this);
+            binding.cbTodoDescription.setOnClickListener(this);
+            binding.executePendingBindings();
         }
 
         @Override
@@ -174,6 +132,49 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoLi
                     mCursor.getInt(m_IDIndex),
                     mCursor.getInt(mCompletedIndex));
             mClickHandler.onClick(todoTask, view);
+        }
+        @SuppressLint("RestrictedApi")
+        public void bind(Cursor cursor){
+            binding.cbTodoDescription.setText(cursor.getString(mDescriptionIndex));
+            binding.tvTodoDueDate.setTextColor(binding.tvTodoPriority.getCurrentTextColor());
+
+            String dueDateString;
+            long dueDate = cursor.getLong(mDueDateIndex);
+            Log.d(TAG, cursor.getString(mDescriptionIndex) + " " + dueDate);
+            if (dueDate == TodoTask.NO_DUE_DATE) {
+                dueDateString = mContext.getString(R.string.no_due_date);
+            } else {
+                dueDateString = TodoDateUtils.formatDueDate(mContext, dueDate);
+            }
+
+            int priority = cursor.getInt(mPriorityIndex);
+            binding.tvTodoDueDate.setText(dueDateString);
+            binding.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
+            int isCompleted = cursor.getInt(mCompletedIndex);
+            binding.cbTodoDescription.setChecked(isCompleted == TodoTask.TASK_COMPLETED);
+
+            if (isCompleted == TodoTask.TASK_COMPLETED) {
+                // if the task is completed, we want everything grey
+                clTodoListItem.setBackground(mRes.getDrawable(R.drawable.list_item_completed_touch_selector));
+                binding.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorCompleted));
+                binding.cbTodoDescription.setSupportButtonTintList(completedCheckboxColors);
+                binding.tvTodoPriority.setText(mRes.getString(R.string.completed));
+                priority = PriorityStarImageView.COMPLETED;
+            } else {
+                clTodoListItem.setBackground(mRes.getDrawable(R.drawable.list_item_touch_selector));
+                binding.cbTodoDescription.setTextColor(mRes.getColor(R.color.colorPrimaryDark));
+                binding.cbTodoDescription.setSupportButtonTintList(unCompletedCheckboxColors);
+                binding.tvTodoPriority.setText(mRes.getStringArray(R.array.priorities)[priority]);
+                if (dueDate < TodoDateUtils.getTodaysDateInMillis()) {
+                    // display overdue tasks with the date in red
+                    // yeah, I know red for both overdue and high priority may be not the best idea
+                    binding.tvTodoDueDate.setTextColor(mRes.getColor(R.color.colorOverdue));
+                } else {
+                    binding.tvTodoDueDate.setTextColor(binding.tvTodoPriority.getCurrentTextColor());
+                    Log.d(TAG, "color is " + (binding.tvTodoPriority.getCurrentTextColor()));
+                }
+            }
+            binding.ivTodoPriorityStar.setPriority(priority);
         }
     }
 }

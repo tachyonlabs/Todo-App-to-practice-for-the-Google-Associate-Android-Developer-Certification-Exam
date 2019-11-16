@@ -1,0 +1,22 @@
+
+def versions = [:]
+
+// Sdk and tools
+versions.compile_sdk = 27
+versions.min_sdk = 16
+versions.target_sdk = 27
+
+//App dependencies
+versions.support = '27.1.1'
+versions.constraintLayout = '1.1.2'
+
+//jUnit test
+versions.jUnit = '4.12'
+
+//runner test
+versions.runner = '1.0.2'
+
+//espresso
+versions.espresso = '3.0.2'
+
+ext.versions = versions
