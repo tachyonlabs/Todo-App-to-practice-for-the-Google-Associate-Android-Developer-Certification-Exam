@@ -6,11 +6,11 @@ I'm thrilled to announce that I just (August 8, 2018) received my Google Associa
 
 ## About the app/project
 
-**_Note:_** This app and the "Exam Content" tasks described below were all for the original 2016 version of Google's 
+**_Note: This app and the "Exam Content" tasks described below were all for the original 2016 version of Google's 
 Associate Android Developer certification exam, but now (August 2018) Google has just released an updated version 
 of the exam featuring Architecture Components. So you should no longer use this app and the list of tasks in this 
 README as part of your practice for taking the exam -- instead, see the "Exam Content" topics for the updated exam
-at [https://developers.google.com/training/certification/associate-android-developer/#exam-content](https://developers.google.com/training/certification/associate-android-developer/#exam-content)
+at [https://developers.google.com/training/certification/associate-android-developer/#exam-content](https://developers.google.com/training/certification/associate-android-developer/#exam-content)_**
 
 Anyway, **_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way 
 for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by 
@@ -20,6 +20,8 @@ implementing all the tasks listed on the "Exam Content" tab of
 one by one as I implement them in the app.)
 
 It's also kind of a way of coming full circle for me -- I had done a [prework Todo app as part of my application for the CodePath Android for Engineers bootcamp](https://github.com/tachyonlabs/CodePath-Android-Bootcamp-Prework), so doing another Todo app as a way to use/practice all the skills that will be tested in the exam seems very appealing to me. 
+
+BTW, my cat-themed productivity app Kitty Todo is a descendant of this project, you can check it out at [https://play.google.com/store/apps/details?id=com.tachyonlabs.kittytodo](https://play.google.com/store/apps/details?id=com.tachyonlabs.kittytodo) and [http://kittytodo.com/](http://kittytodo.com/).
 
 ## Screenshots
 
