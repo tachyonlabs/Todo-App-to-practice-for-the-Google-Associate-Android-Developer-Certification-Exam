@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PracticeTodoApp.iml" filepath="$PROJECT_DIR$/PracticeTodoApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam.iml" filepath="$PROJECT_DIR$/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam-app.iml" filepath="$PROJECT_DIR$/app/Todo-App-to-practice-for-the-Google-Associate-Android-Developer-Certification-Exam-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

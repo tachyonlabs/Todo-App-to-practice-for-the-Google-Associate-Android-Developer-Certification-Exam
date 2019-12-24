@@ -79,8 +79,8 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
 
         getSupportLoaderManager().initLoader(ID_TODOLIST_LOADER, null, this);
 
-        //scheduleDailyDueCheckerAlarm();
-        //cancelAlarm();
+        scheduleDailyDueCheckerAlarm();
+        cancelAlarm();
     }
 
     @Override
@@ -161,6 +161,7 @@ public class TodoListActivity extends AppCompatActivity implements LoaderManager
         sendBroadcast(intent);
     }
 
+    @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle bundle) {
         if (loaderId == ID_TODOLIST_LOADER) {
