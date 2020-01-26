@@ -2,15 +2,16 @@
 
 ## A very happy ending/beginning
 
-I'm thrilled to announce that I just (August 8, 2018) received my Google Associate Android Developer certificate: [https://www.credential.net/c2h121dl?key=cbb1e3a79763d330559fd1e92e98e3192a1d8fae4317e54cb5344835c9a42377](https://www.credential.net/c2h121dl?key=cbb1e3a79763d330559fd1e92e98e3192a1d8fae4317e54cb5344835c9a42377
+I'm thrilled to announce that I just (August 8, 2018) received my Google Associate Android Developer certificate: [https://www.credential.net/c2h121dl?key=cbb1e3a79763d330559fd1e92e98e3192a1d8fae4317e54cb5344835c9a42377](https://www.credential.net/c2h121dl?key=cbb1e3a79763d330559fd1e92e98e3192a1d8fae4317e54cb5344835c9a42377)
 
 ## About the app/project
 
-**_Note: This app and the "Exam Content" tasks described below were all for the original 2016 version of Google's 
-Associate Android Developer certification exam, but now (August 2018) Google has just released an updated version 
+**_Note: This app and the "Exam Content" tasks described below were all for the ORIGINAL 2016 VERSION of Google's 
+Associate Android Developer certification exam, but in August 2018 Google released an updated version 
 of the exam featuring Architecture Components. So you should no longer use this app and the list of tasks in this 
-README as part of your practice for taking the exam -- instead, see the "Exam Content" topics for the updated exam
-at [https://developers.google.com/training/certification/associate-android-developer/#exam-content](https://developers.google.com/training/certification/associate-android-developer/#exam-content)_**
+README as part of your practice for taking the exam -- instead, click each of the "Study Guide" competency area topics 
+for the updated exam at [https://developers.google.com/training/certification/associate-android-developer/#exam-content](https://developers.google.com/training/certification/associate-android-developer/#exam-content) 
+to see the detailed lists of tasks/"individual competencies" you need for the exam._**
 
 Anyway, **_This app is ABSOLUTELY NOT a project or any other material from the actual exam itself_**, it's just a way 
 for me to get more practice in preparation for taking Google's Associate Android Developer Certification Exam, by 
